@@ -15,6 +15,15 @@ namespace ElboSoft_Contact
     {
 
         /// <summary>
+        /// hiddenrquestno control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField hiddenrquestno;
+
+        /// <summary>
         /// RequestType control.
         /// </summary>
         /// <remarks>
@@ -67,5 +76,14 @@ namespace ElboSoft_Contact
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.GridView SearchGrid;
+
+        /// <summary>
+        /// deleterecord control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button deleterecord;
     }
 }

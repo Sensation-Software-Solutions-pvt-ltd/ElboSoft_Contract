@@ -231,6 +231,15 @@ namespace ElboSoft_Contact
         protected global::System.Web.UI.WebControls.Button ButtonAdd;
 
         /// <summary>
+        /// adddiv control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl adddiv;
+
+        /// <summary>
         /// Savebutton control.
         /// </summary>
         /// <remarks>
@@ -247,5 +256,23 @@ namespace ElboSoft_Contact
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button CreateAgreement;
+
+        /// <summary>
+        /// updatediv control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl updatediv;
+
+        /// <summary>
+        /// updateRequest control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button updateRequest;
     }
 }

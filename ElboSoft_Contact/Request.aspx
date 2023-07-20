@@ -256,7 +256,7 @@
             <div class="tablebloxk">
                 <div class="row">
                     <div class="col-md-12">
-                        <asp:GridView ID="RequestGrid" runat="server" AutoGenerateColumns="false" OnRowDataBound="RequestGrid_RowDataBound" ShowHeaderWhenEmpty="true">
+                        <asp:GridView ID="RequestGrid" runat="server" AutoGenerateColumns="false" OnRowDataBound="RequestGrid_RowDataBound" ShowHeaderWhenEmpty="true" CssClass="table table-bordered">
                             <Columns>
                                 <asp:TemplateField HeaderText="Regional Center">
                                     <ItemTemplate>
@@ -305,9 +305,12 @@
                     </div>
                 </div>
 
-                <div class="action-bar">
+                <div class="action-bar" id="adddiv" runat="server">
                     <asp:Button ID="Savebutton" runat="server" OnClick="Savebutton_Click" CssClass="btn btn-primary" Text="Save" />
                     <asp:Button ID="CreateAgreement" runat="server" CssClass="btn btn-success" OnClick="CreateAgreement_Click" Text="Create Agreement" />
+                </div>
+                <div class="action-bar" id="updatediv" runat="server" visible="false">
+                    <asp:Button ID="updateRequest" runat="server" OnClick="updateRequest_Click" CssClass="btn btn-primary" Text="Update" />
                 </div>
             </div>
         </main>

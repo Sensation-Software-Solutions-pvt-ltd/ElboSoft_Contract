@@ -22,7 +22,14 @@
                 $(e.target).parent("div").parent('.form-group').remove();
             })
         });
-
+        function deleterecord(requestNo) {
+            debugger
+            if (confirm("Are you sure you want to delete this Request Number")) {
+                 document.getElementById("<%=hiddenrquestno.ClientID %>").value=requestNo;
+                document.getElementById("<%=deleterecord.ClientID %>").click();
+                
+            };
+        }
     </script>
     <div class="container ">
         <main class="body_content">
@@ -31,6 +38,7 @@
                     <h1>Search Form</h1>
                 </div>
             </div>
+            <asp:HiddenField ID="hiddenrquestno" runat="server" />
             <div class="widget">
                 <div class="row">
                     <div class="col-md-3">
@@ -77,35 +85,46 @@
                 <div class="row">
                     <div class="col-md-12">
 
-                            <asp:GridView ID="SearchGrid" runat="server" AutoGenerateColumns="false" OnRowDataBound="SearchGrid_RowDataBound" ShowHeaderWhenEmpty="true">
+                            <asp:GridView ID="SearchGrid" runat="server" AutoGenerateColumns="false" OnRowDataBound="SearchGrid_RowDataBound" ShowHeaderWhenEmpty="true" CssClass="table table-bordered">
                             <Columns>
-                                <asp:TemplateField HeaderText="Request Number">
+                                <asp:BoundField HeaderText="Request Number" DataField="RequestNumber" />
+                                <asp:BoundField HeaderText="Customer" DataField="CustomerID" />
+                                <asp:BoundField HeaderText="Purpose" DataField="PurposeID" />
+                                <asp:BoundField HeaderText="Request Date" DataField="RequestDate" />
+                                <%--<asp:BoundField HeaderText="Contract Created" DataField="IsCreatedContract" />--%>
+
+                             <%--   <asp:TemplateField HeaderText="Request Number">
+
                                     <ItemTemplate>
-                                        <asp:TextBox ID="RequestNumber" runat="server" class="form-control" Text='<%# Bind("RequestNumber") %>'></asp:TextBox>
+                                        <asp:TextBox ID="RequestNumber" runat="server" ReadOnly="true" class="form-control" Text='<%# Bind("RequestHeaderID") %>'></asp:TextBox>
                                     </ItemTemplate>
                                 </asp:TemplateField>
                                 <asp:TemplateField HeaderText="Customer">
                                     <ItemTemplate>
-                                        <asp:TextBox ID="Customer" runat="server" class="form-control" Text='<%# Bind("Customer") %>'></asp:TextBox>
+                                        <asp:TextBox ID="Customer" runat="server" ReadOnly="true" class="form-control" Text='<%# Bind("CustomerID") %>'></asp:TextBox>
                                     </ItemTemplate>
                                 </asp:TemplateField>
                                 <asp:TemplateField HeaderText="Purpose">
                                     <ItemTemplate>
-                                        <asp:TextBox ID="Purpose" runat="server" class="form-control" Text='<%# Bind("Purpose") %>'></asp:TextBox>
+                                        <asp:TextBox ID="Purpose" runat="server" ReadOnly="true" class="form-control" Text='<%# Bind("PurposeID") %>'></asp:TextBox>
                                     </ItemTemplate>
                                 </asp:TemplateField>
                                 <asp:TemplateField HeaderText="Request Date">
                                     <ItemTemplate>
-                                        <asp:TextBox ID="RequestDate" runat="server" class="form-control" Text='<%# Bind("RequestDate") %>'></asp:TextBox>
+                                        <asp:TextBox ID="RequestDate" runat="server" ReadOnly="true" class="form-control" Text='<%# Bind("RequestDate") %>'></asp:TextBox>
                                     </ItemTemplate>
-                                </asp:TemplateField>
+                                </asp:TemplateField>--%>
                                 <asp:TemplateField HeaderText="Contract Created">
                                     <ItemTemplate>
-                                        <asp:TextBox ID="ContractCreated" runat="server" class="form-control" Text='<%# Bind("ContractCreated") %>'></asp:TextBox>
+                                        <asp:HyperLink runat="server" CssClass='<%# Convert.ToBoolean(DataBinder.Eval(Container.DataItem,"IsCreatedContract"))==true?"fa fa-check green":"" %>' ID="contract" ></asp:HyperLink>
                                     </ItemTemplate>
                                 </asp:TemplateField>
                                 <asp:TemplateField HeaderText="Action">
-                                   
+                                   <ItemTemplate>
+                                       <asp:HyperLink NavigateUrl='<%# String.Format("{0}.aspx?RequestNumber={1}",Convert.ToBoolean(DataBinder.Eval(Container.DataItem, "IsCreatedContract"))==true?"Contract":"Request",DataBinder.Eval(Container.DataItem, "RequestNumber")) %>'  runat="server" ID="RequestEdit" CssClass="blue fa fa-edit" ></asp:HyperLink>
+                                        <span style="color:indianred"><i class="fa fa-trash" onclick="deleterecord('<%# DataBinder.Eval(Container.DataItem, "RequestNumber") %>')"></i></span>
+                                       
+                                   </ItemTemplate>
                                 </asp:TemplateField>
                             </Columns>
                         </asp:GridView>
@@ -113,7 +132,7 @@
                     </div>
                 </div>
 
-
+                <asp:Button ID="deleterecord" runat="server" OnClick="deleterecord_Click" style="display:none"/>
                 <div class="action-bar">
                     <button class="btn btn-primary">Save</button>
 

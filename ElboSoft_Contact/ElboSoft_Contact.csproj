@@ -207,6 +207,11 @@
     <Compile Include="Models\ManagementUnits.cs" />
     <Compile Include="Models\Months.cs" />
     <Compile Include="Models\RegionalCenters.cs" />
+    <Compile Include="Models\SearchData.cs" />
+    <Compile Include="Models\trContractHeader.cs" />
+    <Compile Include="Models\trContractLine.cs" />
+    <Compile Include="Models\trRequestHeader.cs" />
+    <Compile Include="Models\trRequestLine.cs" />
     <Compile Include="Models\VidoviEdinecniMeri.cs" />
     <Compile Include="Models\VidoviSortimenti.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

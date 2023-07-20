@@ -244,7 +244,7 @@
             <div class="tablebloxk">
                 <div class="row">
                     <div class="col-md-12">
-                        <asp:GridView ID="ContractGrid" runat="server" AutoGenerateColumns="false" OnRowDataBound="ContractGrid_RowDataBound" ShowHeaderWhenEmpty="true">
+                        <asp:GridView ID="ContractGrid" runat="server" AutoGenerateColumns="false" OnRowDataBound="ContractGrid_RowDataBound" ShowHeaderWhenEmpty="true" CssClass="table table-bordered">
                             <Columns>
                                 <asp:TemplateField HeaderText="Regional Center">
                                     <ItemTemplate>
@@ -298,8 +298,11 @@
                     </div>
                 </div>
 
-                <div class="action-bar">
+                <div class="action-bar" runat="server" id="adddiv">
                     <asp:Button ID="Savebutton" runat="server" OnClick="Savebutton_Click" CssClass="btn btn-primary" Text="Save" />
+                </div>
+                <div class="action-bar" runat="server" id="updatediv">
+                    <asp:Button ID="updateContract" runat="server" OnClick="updateContract_Click" CssClass="btn btn-primary" Text="Save" />
                 </div>
             </div>
         </main>
