@@ -144,7 +144,7 @@
                                     Contract Created
                                 </label>
                                 <div class="col-sm-7 chc-box">
-                                    <asp:CheckBox runat="server" ID="ContractCreated" />
+                                    <asp:CheckBox runat="server" ID="ContractCreated"  Enabled="false"/>
                                 </div>
 
                             </div>
@@ -270,17 +270,17 @@
                                 </asp:TemplateField>
                                 <asp:TemplateField HeaderText="Compartment">
                                     <ItemTemplate>
-                                        <asp:TextBox ID="Compartment" runat="server" class="form-control" Text='<%# Bind("Compartment") %>'></asp:TextBox>
+                                        <asp:TextBox ID="Compartment" runat="server" class="form-control" ></asp:TextBox>
                                     </ItemTemplate>
                                 </asp:TemplateField>
                                 <asp:TemplateField HeaderText="SubCompartment">
                                     <ItemTemplate>
-                                        <asp:TextBox ID="SubCompartment" runat="server" class="form-control" Text='<%# Bind("SubCompartment") %>'></asp:TextBox>
+                                        <asp:TextBox ID="SubcompartmentID" runat="server" class="form-control" Text='<%# Bind("SubcompartmentID") %>'></asp:TextBox>
                                     </ItemTemplate>
                                 </asp:TemplateField>
                                 <asp:TemplateField HeaderText="Month">
                                     <ItemTemplate>
-                                        <asp:DropDownList ID="Month" runat="server" class="form-control"></asp:DropDownList>
+                                        <asp:DropDownList ID="Month" runat="server" class="form-control" ></asp:DropDownList>
                                     </ItemTemplate>
                                 </asp:TemplateField>
                                 <asp:TemplateField HeaderText="Edinecna mera">
@@ -293,7 +293,7 @@
                                         <asp:DropDownList ID="Vidsortiment" runat="server" class="form-control"></asp:DropDownList>
                                     </ItemTemplate>
                                 </asp:TemplateField>
-                                <asp:TemplateField HeaderText="Qty">
+                                <asp:TemplateField HeaderText="Qty" >
                                     <ItemTemplate>
                                         <asp:TextBox ID="Qty" runat="server" class="form-control" Text='<%# Bind("Qty") %>'></asp:TextBox>
                                     </ItemTemplate>
@@ -304,7 +304,7 @@
                         <asp:Button ID="ButtonAdd" runat="server" Text="Add New Row" OnClick="ButtonAdd_Click" CssClass="btn btn-btn-default"/>
                     </div>
                 </div>
-
+                <br />
                 <div class="action-bar" id="adddiv" runat="server">
                     <asp:Button ID="Savebutton" runat="server" OnClick="Savebutton_Click" CssClass="btn btn-primary" Text="Save" />
                     <asp:Button ID="CreateAgreement" runat="server" CssClass="btn btn-success" OnClick="CreateAgreement_Click" Text="Create Agreement" />

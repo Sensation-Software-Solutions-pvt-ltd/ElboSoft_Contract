@@ -40,7 +40,7 @@
         <main class="body_content">
             <div class="row">
                 <div class="col-md-12 pageheader">
-                    <h1>Request Form</h1>
+                    <h1>Contract Form</h1>
                 </div>
             </div>
             <div class="widget">
@@ -258,12 +258,12 @@
                                 </asp:TemplateField>
                                 <asp:TemplateField HeaderText="Compartment">
                                     <ItemTemplate>
-                                        <asp:TextBox ID="Compartment" runat="server" class="form-control" Text='<%# Bind("Compartment") %>'></asp:TextBox>
+                                        <asp:TextBox ID="Compartment" runat="server" class="form-control" ></asp:TextBox>
                                     </ItemTemplate>
                                 </asp:TemplateField>
                                 <asp:TemplateField HeaderText="SubCompartment">
                                     <ItemTemplate>
-                                        <asp:TextBox ID="SubCompartment" runat="server" class="form-control" Text='<%# Bind("SubCompartment") %>'></asp:TextBox>
+                                        <asp:TextBox ID="SubcompartmentID" runat="server" class="form-control" Text='<%# Bind("SubcompartmentID") %>'></asp:TextBox>
                                     </ItemTemplate>
                                 </asp:TemplateField>
                                 <asp:TemplateField HeaderText="Month">
@@ -302,7 +302,7 @@
                     <asp:Button ID="Savebutton" runat="server" OnClick="Savebutton_Click" CssClass="btn btn-primary" Text="Save" />
                 </div>
                 <div class="action-bar" runat="server" id="updatediv">
-                    <asp:Button ID="updateContract" runat="server" OnClick="updateContract_Click" CssClass="btn btn-primary" Text="Save" />
+                    <asp:Button ID="updateContract" runat="server" OnClick="updateContract_Click" CssClass="btn btn-primary" Text="Update" />
                 </div>
             </div>
         </main>

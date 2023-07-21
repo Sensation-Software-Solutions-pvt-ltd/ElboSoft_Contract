@@ -22,13 +22,42 @@ namespace ElboSoft_Contact
             {
                 GetRequestType();
                 GetCustomer();
-                GetGridData();
-            }
-
+                GetGridData(RequestType.SelectedItem.Value, RequestNumber.Text.Trim(), Customer.SelectedItem.Value, RequestDate.Text, ContractCreated.Checked);
+            } 
         }
-        private void GetGridData()
+        private void GetGridData(string RequestTypeId,string RequestNumber,string CustomerTyperId, string RequestDate,bool IsContractCreated)
         {
-            string sqlQuery = "select \"RequestHeaderID\", \"CustomerID\", \"PurposeID\",\"RequestDate\", \"IsCreatedContract\",\"RequestNumber\" from public.\"trRequestHeader\" order by \"RequestHeaderID\";";
+            string WhereCondition = string.Empty;
+            string sqlQuery = string.Empty;
+            if (RequestTypeId!="0")
+            {
+                WhereCondition = WhereCondition + " and \"RequestTypeID\"=" + Convert.ToInt32(RequestTypeId);
+            }
+            if (!string.IsNullOrEmpty(RequestNumber))
+            {
+                WhereCondition = WhereCondition + " and \"RequestNumber\"='" + RequestNumber+"'" ;
+            }
+            if (CustomerTyperId!="0")
+            {
+                WhereCondition = WhereCondition + " and \"CustomerID\"=" + Convert.ToInt32(CustomerTyperId);
+            }
+            if (!string.IsNullOrEmpty(RequestDate))
+            {
+                WhereCondition = WhereCondition + " and \"RequestDate\"=cast('" + RequestDate + "' as date)";
+            }
+            if (IsContractCreated)
+            {
+                WhereCondition = WhereCondition + " and \"IsCreatedContract\"=cast(1 as bit)";
+            }
+            if (!string.IsNullOrEmpty(WhereCondition))
+            {
+                sqlQuery = "select \"RequestHeaderID\", \"CustomerID\", \"PurposeID\",\"RequestDate\", \"IsCreatedContract\",\"RequestNumber\" from public.\"trRequestHeader\" where 1=1  "+ WhereCondition +"order by \"RequestHeaderID\";";
+            }
+            else
+            {
+                 sqlQuery = "select \"RequestHeaderID\", \"CustomerID\", \"PurposeID\",\"RequestDate\", \"IsCreatedContract\",\"RequestNumber\" from public.\"trRequestHeader\" order by \"RequestHeaderID\";";
+            }
+            
             List<SearchData> searchData = new List<SearchData>();
             try
             {
@@ -57,6 +86,7 @@ namespace ElboSoft_Contact
                     Customer.DataValueField = "CustomerID";
                     Customer.DataTextField = "CustomerDescription";
                     Customer.DataBind();
+                    Customer.Items.Insert(0, new ListItem("--Select--", "0"));
                 }
             }
             catch (Exception ex)
@@ -79,6 +109,7 @@ namespace ElboSoft_Contact
                     RequestType.DataValueField = "RequestTypeID";
                     RequestType.DataTextField = "RequestTypeDescription";
                     RequestType.DataBind();
+                    RequestType.Items.Insert(0, new ListItem("--Select--", "0"));
                 }
             }
             catch (Exception ex)
@@ -94,8 +125,28 @@ namespace ElboSoft_Contact
 
         protected void deleterecord_Click(object sender, EventArgs e)
         {
-            var id=hiddenrquestno.Value;
+            int id=Convert.ToInt32(hiddenrquestno.Value);
+            string sqlQuery = "select * from public.\"cdRequestType\"";
+            List<cdRequestType> requestType = new List<cdRequestType>();
+            try
+            {
+                using (var conn = new NpgsqlConnection(GetConString()))
+                {
+                 var   deletedRequest = conn.Query<cdRequestType>("delete from public.\"trRequestLine\" where \"RequestHeaderID\"="+id);
+                    deletedRequest = conn.Query<cdRequestType>("delete from public.\"trRequestHeader\" where \"RequestHeaderID\"=" + id);
+                }
+                GetGridData(RequestType.SelectedItem.Value, RequestNumber.Text.Trim(), Customer.SelectedItem.Value, RequestDate.Text, ContractCreated.Checked);
+            }
+            catch (Exception ex)
+            {
+                string error = ex.Message;
+            }
 
+        }
+
+        protected void btnSearch_Click(object sender, EventArgs e)
+        {
+            GetGridData(RequestType.SelectedItem.Value, RequestNumber.Text.Trim(), Customer.SelectedItem.Value, RequestDate.Text, ContractCreated.Checked);
         }
     }
 }
