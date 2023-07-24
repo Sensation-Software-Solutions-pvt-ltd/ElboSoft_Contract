@@ -66,7 +66,7 @@
                                 <label for="firstName" class="col-sm-5 control-label">Request Number</label>
 
                                 <div class="col-sm-7">
-                                    <asp:TextBox runat="server" ID="Requestnumber" CssClass="form-control"></asp:TextBox>
+                                    <asp:TextBox runat="server" ID="Requestnumber" TextMode="Number" CssClass="form-control"></asp:TextBox>
                                 </div>
                             </div>
 
@@ -90,7 +90,7 @@
 
                                 </label>
                                 <div class="col-sm-7">
-                                    <asp:TextBox runat="server" ID="AdvanceAmount" CssClass="form-control"></asp:TextBox>
+                                    <asp:TextBox runat="server" ID="AdvanceAmount" TextMode="Number" CssClass="form-control"></asp:TextBox>
                                 </div>
                             </div>
                             <div class="form-group">
@@ -99,7 +99,7 @@
 
                                 </label>
                                 <div class="col-sm-7">
-                                    <asp:TextBox runat="server" ID="InstallmentNo" CssClass="form-control"></asp:TextBox>
+                                    <asp:TextBox runat="server" ID="InstallmentNo" TextMode="Number" CssClass="form-control"></asp:TextBox>
                                 </div>
                             </div>
 
@@ -109,7 +109,7 @@
 
                                 </label>
                                 <div class="col-sm-7">
-                                    <asp:TextBox runat="server" ID="AmountNeeded" CssClass="form-control"></asp:TextBox>
+                                    <asp:TextBox runat="server" ID="AmountNeeded" TextMode="Number" CssClass="form-control"></asp:TextBox>
                                 </div>
                             </div>
 
@@ -119,7 +119,7 @@
 
                                 </label>
                                 <div class="col-sm-7">
-                                    <asp:TextBox runat="server" ID="BankGuaranteeAmount" CssClass="form-control"></asp:TextBox>
+                                    <asp:TextBox runat="server" ID="BankGuaranteeAmount" TextMode="Number" CssClass="form-control"></asp:TextBox>
                                 </div>
                             </div>
 
@@ -275,7 +275,7 @@
                                 </asp:TemplateField>
                                 <asp:TemplateField HeaderText="SubCompartment">
                                     <ItemTemplate>
-                                        <asp:TextBox ID="SubcompartmentID" runat="server" class="form-control" Text='<%# Bind("SubcompartmentID") %>'></asp:TextBox>
+                                        <asp:TextBox ID="SubcompartmentID" runat="server" TextMode="Number" class="form-control" Text='<%# Bind("SubcompartmentID") %>'></asp:TextBox>
                                     </ItemTemplate>
                                 </asp:TemplateField>
                                 <asp:TemplateField HeaderText="Month">
@@ -295,7 +295,7 @@
                                 </asp:TemplateField>
                                 <asp:TemplateField HeaderText="Qty" >
                                     <ItemTemplate>
-                                        <asp:TextBox ID="Qty" runat="server" class="form-control" Text='<%# Bind("Qty") %>'></asp:TextBox>
+                                        <asp:TextBox ID="Qty" runat="server" TextMode="Number" class="form-control" Text='<%# Bind("Qty") %>'></asp:TextBox>
                                     </ItemTemplate>
                                 </asp:TemplateField>
                                 
@@ -311,6 +311,7 @@
                 </div>
                 <div class="action-bar" id="updatediv" runat="server" visible="false">
                     <asp:Button ID="updateRequest" runat="server" OnClick="updateRequest_Click" CssClass="btn btn-primary" Text="Update" />
+                    <asp:Button ID="Button1" runat="server" CssClass="btn btn-success" OnClick="CreateAgreement_Click" Text="Create Agreement" />
                 </div>
             </div>
         </main>
