@@ -33,9 +33,9 @@ namespace ElboSoft_Contact
                 GetCustomer();
                 GetPaymentType();
                 GetPurpose();
-                if (Request.QueryString["RequestNumber"] != null && !string.IsNullOrEmpty(Request.QueryString["RequestNumber"].ToString()))
+                if (Request.QueryString["RequestId"] != null && !string.IsNullOrEmpty(Request.QueryString["RequestId"].ToString()))
                 {
-                    string RequestId = Request.QueryString["RequestNumber"].ToString();
+                    string RequestId = Request.QueryString["RequestId"].ToString();
                     BindRequestdata(RequestId);
                     adddiv.Visible = false;
                     updatediv.Visible = true;
@@ -48,22 +48,22 @@ namespace ElboSoft_Contact
         private void BindRequestdata(string RequestId)
         {
 
-            string sqlQuery = string.Format("select * from public.\"trRequestHeader\" where \"RequestNumber\"='{0}'", RequestId);
+            string sqlQuery = string.Format("select * from public.\"trRequestHeader\" where \"RequestHeaderID\"='{0}'", RequestId);
             trRequestHeader trRequestHeaders = new trRequestHeader();
             try
             {
                 using (var conn = new NpgsqlConnection(GetConString()))
                 {
                     trRequestHeaders = conn.Query<trRequestHeader>(sqlQuery).FirstOrDefault();
-                    RequestType.SelectedItem.Value = trRequestHeaders.RequestTypeID.ToString();
+                    RequestType.SelectedValue = trRequestHeaders.RequestTypeID.ToString();
                     Requestnumber.Text = trRequestHeaders.RequestNumber;
                     AmountNeeded.Text = trRequestHeaders.TotalAmountNeeded.ToString();
-                    CustomerID.SelectedItem.Value = trRequestHeaders.CustomerID.ToString();
-                    PaymentTypeID.SelectedItem.Value = trRequestHeaders.PaymentTypeID.ToString();
+                    CustomerID.SelectedValue = trRequestHeaders.CustomerID.ToString();
+                    PaymentTypeID.SelectedValue = trRequestHeaders.PaymentTypeID.ToString();
                     AdvanceAmount.Text = trRequestHeaders.AdvanceAmount.ToString();
                     InstallmentNo.Text = trRequestHeaders.Installments.ToString();
                     BankGuaranteeAmount.Text = trRequestHeaders.BankGaranteeAmount.ToString();
-                    PurposeList.SelectedItem.Value = trRequestHeaders.PurposeID.ToString();
+                    PurposeList.SelectedValue = trRequestHeaders.PurposeID.ToString();
                     RequestDate.Text = trRequestHeaders.RequestDate.ToString("yyyy-MM-dd");
                     ContractCreated.Checked = trRequestHeaders.IsCreatedContract;
                     IDCopy.Checked = trRequestHeaders.IDCopyPresented;
@@ -384,7 +384,7 @@ namespace ElboSoft_Contact
                 }
                 if (result > 0)
                 {
-                    Response.Redirect("Contract.aspx?RequestNumber=" + RequestNumber);
+                    Response.Redirect("Contract.aspx?RequestId=" + RequestHeaderId);
                 }
             }
         }
@@ -536,11 +536,10 @@ namespace ElboSoft_Contact
                 int drdformpresented = DRDForm.Checked == true ? 1 : 0;
                 int declarationofreceiptpresented = DeclarationReceipt.Checked == true ? 1 : 0;
                 int agtreementpresented = Agreement.Checked == true ? 1 : 0;
-                string createdusername = "test";
-                string lastupdatedusername = "test";
                 string createddate = DateTime.Now.ToString("yyyy-MM-dd");
-                string RequestNumber = Request.QueryString["RequestNumber"].ToString();
-                string sqlquery = string.Format("UPDATE public.\"trRequestHeader\" SET \"RequestTypeID\"={0}, \"CustomerID\"={1}, \"PaymentTypeID\"={2}, \"AdvanceAmount\"=cast({3} as money), \"Installments\"={4}, \"TotalAmountNeeded\"={5}, \"BankGaranteeAmount\"=cast({6} as money), \"SubcompartmentID\"={7}, \"PurposeID\"={8}, \"RequestDate\"=cast('{9}' as date), \"IsCreatedContract\"=cast({10} as bit), \"IDCopyPresented\"=cast({11} as bit), \"IDBankAccountPresented\"=cast({12} as bit), \"PensionCheckPresented\"=cast({13} as bit), \"CentralRegisterCopy\"=cast({14} as bit), \"PowerOfAttorney\"=cast({15} as bit), \"AffidavitPresented\"=cast({16} as bit), \"ConfirmationPresented\"=cast({17} as bit), \"DRDFormPresented\"=cast({18} as bit), \"DeclarationOfReceiptPresented\"=cast({19} as bit), \"AgtreementPresented\"=cast({20} as bit),  \"LastUpdatedUserName\"='{21}', \"LastUpdatedDate\"=cast('{22}' as date) WHERE \"RequestNumber\"='{23}'; ", RequestTypeID, CustomerId, paymenttypeid, advanceamount, installments, totalamountneeded, bankgaranteeamount, subcompartmentid, purposeid, Requestdate, iscreatedcontract, idcopypresented, idbankaccountpresented, pensioncheckpresented, centralregistercopy, powerofattorney, affidavitpresented, confirmationpresented, drdformpresented, declarationofreceiptpresented, agtreementpresented, lastupdatedusername, createddate, RequestNumber);
+                string RequestHeaderID = Request.QueryString["RequestId"].ToString();
+                string RequestNumber = Requestnumber.Text.Trim();
+                string sqlquery = string.Format("UPDATE public.\"trRequestHeader\" SET \"RequestTypeID\"={0}, \"CustomerID\"={1}, \"PaymentTypeID\"={2}, \"AdvanceAmount\"=cast({3} as money), \"Installments\"={4}, \"TotalAmountNeeded\"={5}, \"BankGaranteeAmount\"=cast({6} as money), \"SubcompartmentID\"={7}, \"PurposeID\"={8}, \"RequestDate\"=cast('{9}' as date), \"IsCreatedContract\"=cast({10} as bit), \"IDCopyPresented\"=cast({11} as bit), \"IDBankAccountPresented\"=cast({12} as bit), \"PensionCheckPresented\"=cast({13} as bit), \"CentralRegisterCopy\"=cast({14} as bit), \"PowerOfAttorney\"=cast({15} as bit), \"AffidavitPresented\"=cast({16} as bit), \"ConfirmationPresented\"=cast({17} as bit), \"DRDFormPresented\"=cast({18} as bit), \"DeclarationOfReceiptPresented\"=cast({19} as bit), \"AgtreementPresented\"=cast({20} as bit),  \"LastUpdatedUserName\"='{21}', \"LastUpdatedDate\"=cast('{22}' as date), \"RequestNumber\"='{23}' WHERE \"RequestHeaderID\"='{24}'; ", RequestTypeID, CustomerId, paymenttypeid, advanceamount, installments, totalamountneeded, bankgaranteeamount, subcompartmentid, purposeid, Requestdate, iscreatedcontract, idcopypresented, idbankaccountpresented, pensioncheckpresented, centralregistercopy, powerofattorney, affidavitpresented, confirmationpresented, drdformpresented, declarationofreceiptpresented, agtreementpresented, lastupdatedusername, createddate, RequestNumber, RequestHeaderID);
 
                 using (var conn = new NpgsqlConnection(GetConString()))
                 {

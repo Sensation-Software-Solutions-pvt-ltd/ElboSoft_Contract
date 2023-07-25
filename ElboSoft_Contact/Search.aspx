@@ -73,7 +73,7 @@
                                 <asp:BoundField HeaderText="Customer" DataField="CustomerID" />
                                 <asp:BoundField HeaderText="Purpose" DataField="PurposeID" />
                                 <asp:BoundField HeaderText="Request Date" DataField="RequestDate" />
-                                <asp:BoundField HeaderText="Request Date" DataField="RequestHeaderID" Visible="false" />
+                                <asp:BoundField HeaderText="" DataField="RequestHeaderID" Visible="false" />
                                 <%--<asp:BoundField HeaderText="Contract Created" DataField="IsCreatedContract" />--%>
 
                              <%--   <asp:TemplateField HeaderText="Request Number">
@@ -104,7 +104,7 @@
                                 </asp:TemplateField>
                                 <asp:TemplateField HeaderText="Action">
                                    <ItemTemplate>
-                                       <asp:HyperLink NavigateUrl='<%# String.Format("{0}.aspx?RequestNumber={1}",Convert.ToBoolean(DataBinder.Eval(Container.DataItem, "IsCreatedContract"))==true?"Contract":"Request",DataBinder.Eval(Container.DataItem, "RequestNumber")) %>'   runat="server" ID="RequestEdit" CssClass="blue fa fa-edit" ></asp:HyperLink>
+                                       <asp:HyperLink NavigateUrl='<%# String.Format("{0}.aspx?RequestId={1}",Convert.ToBoolean(DataBinder.Eval(Container.DataItem, "IsCreatedContract"))==true?"Contract":"Request",DataBinder.Eval(Container.DataItem, "RequestHeaderID")) %>'   runat="server" ID="RequestEdit" CssClass="blue fa fa-edit" ></asp:HyperLink>
                                        <%-- <span style="color:indianred"><i class="fa fa-trash" onclick="deleterecord('<%# DataBinder.Eval(Container.DataItem, "RequestHeaderID") %>'"></i></span>--%>
                                        <a href="#" onclick="deleterecord('<%# DataBinder.Eval(Container.DataItem, "RequestHeaderID") %>')" style="color:indianred" class='<%# Convert.ToBoolean(DataBinder.Eval(Container.DataItem,"IsCreatedContract"))==false?"fa fa-trash":"" %>'></a>
                                    </ItemTemplate>
