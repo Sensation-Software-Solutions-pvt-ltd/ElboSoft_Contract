@@ -104,7 +104,7 @@
                                 </asp:TemplateField>
                                 <asp:TemplateField HeaderText="Action">
                                    <ItemTemplate>
-                                       <asp:HyperLink NavigateUrl='<%# String.Format("{0}.aspx?RequestId={1}",Convert.ToBoolean(DataBinder.Eval(Container.DataItem, "IsCreatedContract"))==true?"Contract":"Request",DataBinder.Eval(Container.DataItem, "RequestHeaderID")) %>'   runat="server" ID="RequestEdit" CssClass="blue fa fa-edit" ></asp:HyperLink>
+                                       <asp:HyperLink NavigateUrl='<%# String.Format("{0}={1}",Convert.ToBoolean(DataBinder.Eval(Container.DataItem, "IsCreatedContract"))==true?"Contract.aspx?ContractId":"Request.aspx?RequestId",Convert.ToInt32(DataBinder.Eval(Container.DataItem, "RequestHeaderID"))==0?DataBinder.Eval(Container.DataItem,"ContractHeaderId")+"c":DataBinder.Eval(Container.DataItem,"RequestHeaderId")) %>'   runat="server" ID="RequestEdit" CssClass="blue fa fa-edit" ></asp:HyperLink>
                                        <%-- <span style="color:indianred"><i class="fa fa-trash" onclick="deleterecord('<%# DataBinder.Eval(Container.DataItem, "RequestHeaderID") %>'"></i></span>--%>
                                        <a href="#" onclick="deleterecord('<%# DataBinder.Eval(Container.DataItem, "RequestHeaderID") %>')" style="color:indianred" class='<%# Convert.ToBoolean(DataBinder.Eval(Container.DataItem,"IsCreatedContract"))==false?"fa fa-trash":"" %>'></a>
                                    </ItemTemplate>

@@ -256,16 +256,19 @@
                                 </asp:TemplateField>
                                 <asp:TemplateField HeaderText="Month">
                                     <ItemTemplate>
+                                        <asp:Label ID="lblMonth" runat="server" Text='<%# Eval("Month") %>' Visible = "false" />
                                         <asp:DropDownList ID="Month" runat="server" class="form-control" ></asp:DropDownList>
                                     </ItemTemplate>
                                 </asp:TemplateField>
                                 <asp:TemplateField HeaderText="Edinecna mera">
                                     <ItemTemplate>
+                                         <asp:Label ID="lblEdinecnamera" runat="server" Text='<%# Eval("VidoviEdinecniMeriID")%> ' Visible = "false" />
                                         <asp:DropDownList ID="Edinecnamera" runat="server" class="form-control"></asp:DropDownList>
                                     </ItemTemplate>
                                 </asp:TemplateField>
                                 <asp:TemplateField HeaderText="Vid sortiment">
                                     <ItemTemplate>
+                                             <asp:Label ID="lblVidsortiment" runat="server" Text='<%# Eval("VidoviSortimentiID") %>' Visible = "false" />
                                         <asp:DropDownList ID="Vidsortiment" runat="server" class="form-control"></asp:DropDownList>
                                     </ItemTemplate>
                                 </asp:TemplateField>

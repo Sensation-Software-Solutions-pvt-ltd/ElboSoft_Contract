@@ -51,11 +51,11 @@ namespace ElboSoft_Contact
             }
             if (!string.IsNullOrEmpty(WhereCondition))
             {
-                sqlQuery = "select \"RequestHeaderID\", \"CustomerID\", \"PurposeID\",\"RequestDate\", \"IsCreatedContract\",\"RequestNumber\" from public.\"trRequestHeader\" where 1=1  "+ WhereCondition +"order by \"RequestHeaderID\";";
+                sqlQuery = "select * from(select \"RequestHeaderID\",0 as \"ContractHeaderID\", \"CustomerID\",\"RequestTypeID\", \"PurposeID\",\"RequestDate\", \"IsCreatedContract\",\"RequestNumber\" from public.\"trRequestHeader\"  union select \"RequestHeaderID\",\"ContractHeaderID\", \"CustomerID\",\"ContractTypeID\", \"PurposeID\",\"ContractDate\", cast(1 as bit),\"RequestNumber\" from public.\"trContractHeader\" where \"RequestHeaderID\" not in(select \"RequestHeaderID\" from public.\"trRequestHeader\")) as tbl  where 1=1  " + WhereCondition +" order by \"RequestHeaderID\";";
             }
             else
             {
-                 sqlQuery = "select \"RequestHeaderID\", \"CustomerID\", \"PurposeID\",\"RequestDate\", \"IsCreatedContract\",\"RequestNumber\" from public.\"trRequestHeader\" order by \"RequestHeaderID\";";
+                 sqlQuery = "select * from(select \"RequestHeaderID\",0 as \"ContractHeaderID\", \"CustomerID\",\"RequestTypeID\", \"PurposeID\",\"RequestDate\", \"IsCreatedContract\",\"RequestNumber\" from public.\"trRequestHeader\"  union select \"RequestHeaderID\",\"ContractHeaderID\", \"CustomerID\",\"ContractTypeID\", \"PurposeID\",\"ContractDate\", cast(1 as bit),\"RequestNumber\" from public.\"trContractHeader\" where \"RequestHeaderID\" not in(select \"RequestHeaderID\" from public.\"trRequestHeader\")) as tbl  order by \"RequestHeaderID\";";
             }
             
             List<SearchData> searchData = new List<SearchData>();

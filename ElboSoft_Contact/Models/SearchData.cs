@@ -8,6 +8,7 @@ namespace ElboSoft_Contact.Models
     public class SearchData
     {
         public int RequestHeaderID { get; set; }
+        public int ContractHeaderID { get; set; }
         public int CustomerID { get; set; }
         public int PurposeID { get; set; }
         public DateTime RequestDate { get; set; }

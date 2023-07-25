@@ -51,10 +51,10 @@
                                 <label class="col-sm-5 control-label">Contract Type </label>
                                 <div class="col-sm-7 plus-control" id="non-edited-form">
                                     <asp:DropDownList ID="ContractTypeID" runat="server" CssClass="form-control"></asp:DropDownList>
-                                    <span id="ad-ico" class=" pls-icon glyphicon glyphicon glyphicon-plus"></span>
+                                    <span id="ad-ico" class=" pls-icon glyphicon glyphicon glyphicon-plus" ></span>
                                 </div>
                                 <div class="col-sm-7 plus-control " id="edited-form" style="display: none;">
-                                <asp:TextBox ID="Contractnumber" runat="server" CssClass="form-control"></asp:TextBox>
+                                <asp:TextBox ID="ContractTypeDescription" runat="server" CssClass="form-control"></asp:TextBox>
                                 <span id="csadded" class=" pls-icon checkblock">&#x2714;</span>
                             </div>
                             </div>
@@ -248,7 +248,7 @@
                             <Columns>
                                 <asp:TemplateField HeaderText="Regional Center">
                                     <ItemTemplate>
-                                        <asp:DropDownList ID="ReginalCenter" runat="server" class="form-control"></asp:DropDownList>
+                                        <asp:DropDownList ID="ReginalCenter" runat="server" class="form-control" ></asp:DropDownList>
                                     </ItemTemplate>
                                 </asp:TemplateField>
                                 <asp:TemplateField HeaderText="Management Unit">
@@ -268,16 +268,19 @@
                                 </asp:TemplateField>
                                 <asp:TemplateField HeaderText="Month">
                                     <ItemTemplate>
-                                        <asp:DropDownList ID="Month" runat="server" class="form-control"></asp:DropDownList>
+                                        <asp:Label ID="lblMonth" runat="server" Text='<%# Eval("Month") %>' Visible = "false" />
+                                        <asp:DropDownList ID="Month" runat="server" class="form-control" ></asp:DropDownList>
                                     </ItemTemplate>
                                 </asp:TemplateField>
                                 <asp:TemplateField HeaderText="Edinecna mera">
                                     <ItemTemplate>
+                                         <asp:Label ID="lblEdinecnamera" runat="server" Text='<%# Eval("VidoviEdinecniMeriID") %>' Visible = "false" />
                                         <asp:DropDownList ID="Edinecnamera" runat="server" class="form-control"></asp:DropDownList>
                                     </ItemTemplate>
                                 </asp:TemplateField>
                                 <asp:TemplateField HeaderText="Vid sortiment">
                                     <ItemTemplate>
+                                         <asp:Label ID="lblVidsortiment" runat="server" Text='<%# Eval("VidoviSortimentiID") %>' Visible = "false" />
                                         <asp:DropDownList ID="Vidsortiment" runat="server" class="form-control"></asp:DropDownList>
                                     </ItemTemplate>
                                 </asp:TemplateField>

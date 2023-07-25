@@ -200,7 +200,9 @@ namespace ElboSoft_Contact
                 DropDownList Month = (e.Row.FindControl("Month") as DropDownList);
                 DropDownList Edinecnamera = (e.Row.FindControl("Edinecnamera") as DropDownList);
                 DropDownList Vidsortiment = (e.Row.FindControl("Vidsortiment") as DropDownList);
-
+                string month = (e.Row.FindControl("lblMonth") as Label).Text;
+                string edinecnamera = (e.Row.FindControl("lblEdinecnamera") as Label).Text;
+                string vidsortiment = (e.Row.FindControl("lblVidsortiment") as Label).Text;
                 try
                 {
                     using (var conn = new NpgsqlConnection(GetConString()))
@@ -230,6 +232,18 @@ namespace ElboSoft_Contact
                         Month.DataValueField = "ID";
                         Month.DataTextField = "Name";
                         Month.DataBind();
+                        if (!string.IsNullOrEmpty(month)&&month!="0")
+                        {
+                            Month.Items.FindByValue(month).Selected = true;
+                        }
+                        if (!string.IsNullOrEmpty(edinecnamera) && edinecnamera!="0")
+                        {
+                            Edinecnamera.Items.FindByValue(edinecnamera).Selected = true;
+                        }
+                        if (!string.IsNullOrEmpty(vidsortiment)&& vidsortiment!="0")
+                        {
+                            Vidsortiment.Items.FindByValue(vidsortiment).Selected = true;
+                        }
                     }
                 }
                 catch (Exception ex)
@@ -403,8 +417,8 @@ namespace ElboSoft_Contact
             dt.Columns.Add(new DataColumn("Compartment", typeof(string)));
             dt.Columns.Add(new DataColumn("SubcompartmentID", typeof(string)));
             dt.Columns.Add(new DataColumn("Month", typeof(string)));
-            dt.Columns.Add(new DataColumn("Edinecnamera", typeof(string)));
-            dt.Columns.Add(new DataColumn("Vidsortiment", typeof(string)));
+            dt.Columns.Add(new DataColumn("VidoviEdinecniMeriID", typeof(string)));
+            dt.Columns.Add(new DataColumn("VidoviSortimentiID", typeof(string)));
             dt.Columns.Add(new DataColumn("Qty", typeof(string)));
             dt.Columns.Add(new DataColumn("Price", typeof(string)));
             dr = dt.NewRow();
@@ -413,11 +427,23 @@ namespace ElboSoft_Contact
             dr["Compartment"] = string.Empty;
             dr["SubcompartmentID"] = string.Empty;
             dr["Month"] = string.Empty;
-            dr["Edinecnamera"] = string.Empty;
-            dr["Vidsortiment"] = string.Empty;
+            dr["VidoviEdinecniMeriID"] = string.Empty;
+            dr["VidoviSortimentiID"] = string.Empty;
             dr["Qty"] = string.Empty;
             dr["Price"] = string.Empty;
             dt.Rows.Add(dr);
+            //List<trRequestLine> requestLines = new List<trRequestLine>();
+            //trRequestLine requestLine = new trRequestLine();
+            //requestLine.ReginalCenter = 1;
+            //requestLine.ManagementUnit = 1;
+            //requestLine.Compartment = 1;
+            //requestLine.SubcompartmentID = 1;
+            //requestLine.Month = 1;
+            //requestLine.VidoviEdinecniMeriID = 1;
+            //requestLine.VidoviSortimentiID = 1;
+            //requestLine.Qty = 0;
+            //requestLine.PriceDetailID = 1;
+            //requestLines.Add(requestLine);
             ViewState["CurrentTable"] = dt;
             RequestGrid.DataSource = dt;
             RequestGrid.DataBind();
@@ -539,7 +565,7 @@ namespace ElboSoft_Contact
                 string createddate = DateTime.Now.ToString("yyyy-MM-dd");
                 string RequestHeaderID = Request.QueryString["RequestId"].ToString();
                 string RequestNumber = Requestnumber.Text.Trim();
-                string sqlquery = string.Format("UPDATE public.\"trRequestHeader\" SET \"RequestTypeID\"={0}, \"CustomerID\"={1}, \"PaymentTypeID\"={2}, \"AdvanceAmount\"=cast({3} as money), \"Installments\"={4}, \"TotalAmountNeeded\"={5}, \"BankGaranteeAmount\"=cast({6} as money), \"SubcompartmentID\"={7}, \"PurposeID\"={8}, \"RequestDate\"=cast('{9}' as date), \"IsCreatedContract\"=cast({10} as bit), \"IDCopyPresented\"=cast({11} as bit), \"IDBankAccountPresented\"=cast({12} as bit), \"PensionCheckPresented\"=cast({13} as bit), \"CentralRegisterCopy\"=cast({14} as bit), \"PowerOfAttorney\"=cast({15} as bit), \"AffidavitPresented\"=cast({16} as bit), \"ConfirmationPresented\"=cast({17} as bit), \"DRDFormPresented\"=cast({18} as bit), \"DeclarationOfReceiptPresented\"=cast({19} as bit), \"AgtreementPresented\"=cast({20} as bit),  \"LastUpdatedUserName\"='{21}', \"LastUpdatedDate\"=cast('{22}' as date), \"RequestNumber\"='{23}' WHERE \"RequestHeaderID\"='{24}'; ", RequestTypeID, CustomerId, paymenttypeid, advanceamount, installments, totalamountneeded, bankgaranteeamount, subcompartmentid, purposeid, Requestdate, iscreatedcontract, idcopypresented, idbankaccountpresented, pensioncheckpresented, centralregistercopy, powerofattorney, affidavitpresented, confirmationpresented, drdformpresented, declarationofreceiptpresented, agtreementpresented, lastupdatedusername, createddate, RequestNumber, RequestHeaderID);
+                string sqlquery = string.Format("UPDATE public.\"trRequestHeader\" SET \"RequestTypeID\"={0}, \"CustomerID\"={1}, \"PaymentTypeID\"={2}, \"AdvanceAmount\"=cast({3} as money), \"Installments\"={4}, \"TotalAmountNeeded\"={5}, \"BankGaranteeAmount\"=cast({6} as money), \"SubcompartmentID\"={7}, \"PurposeID\"={8}, \"RequestDate\"=cast('{9}' as date), \"IsCreatedContract\"=cast({10} as bit), \"IDCopyPresented\"=cast({11} as bit), \"IDBankAccountPresented\"=cast({12} as bit), \"PensionCheckPresented\"=cast({13} as bit), \"CentralRegisterCopy\"=cast({14} as bit), \"PowerOfAttorney\"=cast({15} as bit), \"AffidavitPresented\"=cast({16} as bit), \"ConfirmationPresented\"=cast({17} as bit), \"DRDFormPresented\"=cast({18} as bit), \"DeclarationOfReceiptPresented\"=cast({19} as bit), \"AgtreementPresented\"=cast({20} as bit),  \"LastUpdatedUserName\"='{21}', \"LastUpdatedDate\"=cast('{22}' as date), \"RequestNumber\"='{23}' WHERE \"RequestHeaderID\"={24}; ", RequestTypeID, CustomerId, paymenttypeid, advanceamount, installments, totalamountneeded, bankgaranteeamount, subcompartmentid, purposeid, Requestdate, iscreatedcontract, idcopypresented, idbankaccountpresented, pensioncheckpresented, centralregistercopy, powerofattorney, affidavitpresented, confirmationpresented, drdformpresented, declarationofreceiptpresented, agtreementpresented, lastupdatedusername, createddate, RequestNumber, RequestHeaderID);
 
                 using (var conn = new NpgsqlConnection(GetConString()))
                 {
@@ -553,9 +579,9 @@ namespace ElboSoft_Contact
                     string VidoviEdinecniMeriID = ((DropDownList)RequestGrid.Rows[i].FindControl("Edinecnamera")).SelectedItem.Value;
                     string VidoviSortimentiID = ((DropDownList)RequestGrid.Rows[i].FindControl("Vidsortiment")).SelectedItem.Value;
                     string Qty = ((TextBox)RequestGrid.Rows[i].FindControl("Qty")).Text;
-                    string subcomp = ((TextBox)RequestGrid.Rows[i].FindControl("SubCompartment")).Text;
+                    string subcomp = ((TextBox)RequestGrid.Rows[i].FindControl("SubcompartmentID")).Text;
                     int PriceDetailID = 0;
-                    sqlquery = string.Format("UPDATE public.\"trRequestLine\" SET \"SubcompartmentID\"={0}, \"Month\"={1}, \"VidoviEdinecniMeriID\"={2}, \"VidoviSortimentiID\"={3}, \"Qty\"=cast({4} as money), \"PriceDetailID\"={5},  \"LastUpdatedUserName\"='{6}', \"LastUpdatedDate\"=cast('{7}' as date) WHERE \"RequestHeaderID\"={8} ", string.IsNullOrEmpty(subcomp) ? 0 : Convert.ToInt32(subcomp), string.IsNullOrEmpty(month) ? 0 : Convert.ToInt32(month), string.IsNullOrEmpty(VidoviEdinecniMeriID) ? 0 : Convert.ToInt32(VidoviEdinecniMeriID), string.IsNullOrEmpty(VidoviSortimentiID) ? 0 : Convert.ToInt32(VidoviSortimentiID), string.IsNullOrEmpty(Qty) ? 0 : Convert.ToDecimal(Qty), PriceDetailID, lastupdatedusername, createddate, RequestHeaderId);
+                    sqlquery = string.Format("UPDATE public.\"trRequestLine\" SET \"SubcompartmentID\"={0}, \"Month\"={1}, \"VidoviEdinecniMeriID\"={2}, \"VidoviSortimentiID\"={3}, \"Qty\"=cast({4} as money), \"PriceDetailID\"={5},  \"LastUpdatedUserName\"='{6}', \"LastUpdatedDate\"=cast('{7}' as date) WHERE \"RequestHeaderID\"={8} ", string.IsNullOrEmpty(subcomp) ? 0 : Convert.ToInt32(subcomp), string.IsNullOrEmpty(month) ? 0 : Convert.ToInt32(month), string.IsNullOrEmpty(VidoviEdinecniMeriID) ? 0 : Convert.ToInt32(VidoviEdinecniMeriID), string.IsNullOrEmpty(VidoviSortimentiID) ? 0 : Convert.ToInt32(VidoviSortimentiID), string.IsNullOrEmpty(Qty) ? 0 : Convert.ToDecimal(Qty), PriceDetailID, lastupdatedusername, createddate, Request.QueryString["RequestId"].ToString());
                     using (var conn = new NpgsqlConnection(GetConString()))
                     {
                         result = conn.Query<int>(sqlquery).FirstOrDefault();
