@@ -4,40 +4,16 @@
     <script type="text/javascript">
 
         $(document).ready(() => {
-            let template = ` <div class="form-group">
-                    <label for="firstName" class="col-sm-5 control-label">&nbsp;</label>
-                    <div class="col-sm-7 plus-control">
-                            <select class="form-control" name="ContractTypeID" id="ContractTypeID">
-                           </select> 
-                             <span class="glyphicon pls-icon glyphicon-minus remove-block" ></span>                      
-                    </div>
-
-
-                </div>`;
-
-            //     $("#add").on("click", ()=>{
-            //         $("#items").append(template);
-            //     })
-            //     $("body").on("click", ".remove-block", (e)=>{
-            //         $(e.target).parent("div").parent('.form-group').remove();
-            //     })
-            // });
-
-
-
             $("#ad-ico").on("click", () => {
                 $("#edited-form").show();
                 $('#non-edited-form').hide();
             })
-
-
-
             $("#csadded").on("click", () => {
                 $("#non-edited-form").show();
                 $('#edited-form').hide();
+                $('#edited-form input').val('');
             })
         });
-
     </script>
     <div class="container ">
         <main class="body_content">
@@ -51,19 +27,19 @@
                     <div class="col-md-6">
                         <div class="form-horizontal">
                             <div class="form-group">
-                                <label for="firstName" class="col-sm-5 control-label">Request Type </label>
+                                <label  class="col-sm-5 control-label">Request Type </label>
                                 <div class="col-sm-7 plus-control" id="non-edited-form">
                                     <asp:DropDownList ID="RequestType" runat="server" CssClass="form-control"></asp:DropDownList>
                                     <span id="ad-ico" class=" pls-icon glyphicon glyphicon glyphicon-plus"></span>
                                 </div>
                                 <div class="col-sm-7 plus-control " id="edited-form" style="display: none;">
-                                    <asp:TextBox ID="Contractnumber" runat="server" CssClass="form-control"></asp:TextBox>
+                                    <asp:TextBox ID="RequestTypeDescription" runat="server" CssClass="form-control"></asp:TextBox>
                                     <span id="csadded" class=" pls-icon checkblock">&#x2714;</span>
                                 </div>
                             </div>
 
                             <div class="form-group">
-                                <label for="firstName" class="col-sm-5 control-label">Request Number</label>
+                                <label  class="col-sm-5 control-label">Request Number</label>
 
                                 <div class="col-sm-7">
                                     <asp:TextBox runat="server" ID="Requestnumber" TextMode="Number" CssClass="form-control"></asp:TextBox>
@@ -71,13 +47,13 @@
                             </div>
 
                             <div class="form-group">
-                                <label for="email" class="col-sm-5 control-label">Customer</label>
+                                <label  class="col-sm-5 control-label">Customer</label>
                                 <div class="col-sm-7">
                                     <asp:DropDownList ID="CustomerID" runat="server" CssClass="form-control"></asp:DropDownList>
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label for="email" class="col-sm-5 control-label">PaymentType</label>
+                                <label  class="col-sm-5 control-label">PaymentType</label>
                                 <div class="col-sm-7">
                                     <asp:DropDownList ID="PaymentTypeID" runat="server" CssClass="form-control"></asp:DropDownList>
                                 </div>
@@ -85,7 +61,7 @@
 
 
                             <div class="form-group">
-                                <label for="password" class="col-sm-5 control-label">
+                                <label  class="col-sm-5 control-label">
                                     Advance Amount
 
                                 </label>
@@ -94,7 +70,7 @@
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label for="password" class="col-sm-5 control-label">
+                                <label  class="col-sm-5 control-label">
                                     No of Installments
 
                                 </label>
@@ -104,7 +80,7 @@
                             </div>
 
                             <div class="form-group">
-                                <label for="password" class="col-sm-5 control-label">
+                                <label  class="col-sm-5 control-label">
                                     Total Amount Nedded
 
                                 </label>
@@ -114,7 +90,7 @@
                             </div>
 
                             <div class="form-group">
-                                <label for="password" class="col-sm-5 control-label">
+                                <label  class="col-sm-5 control-label">
                                     Bank guarantee amount
 
                                 </label>
@@ -124,7 +100,7 @@
                             </div>
 
                             <div class="form-group">
-                                <label for="CompartmentID" class="col-sm-5 control-label">
+                                <label  class="col-sm-5 control-label">
                                     Purpose
                                 </label>
                                 <div class="col-sm-7">
@@ -132,7 +108,7 @@
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label for="CompartmentID" class="col-sm-5 control-label">
+                                <label  class="col-sm-5 control-label">
                                     Request Date
                                 </label>
                                 <div class="col-sm-7">
@@ -140,7 +116,7 @@
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label for="CompartmentID" class="col-sm-5 control-label">
+                                <label  class="col-sm-5 control-label">
                                     Contract Created
                                 </label>
                                 <div class="col-sm-7 chc-box">
@@ -157,7 +133,7 @@
 
                         <div class="form-horizontal">
                             <div class="form-group checkbox-control">
-                                <label for="IDCopyPresented" class="col-sm-6 control-label">
+                                <label class="col-sm-6 control-label">
                                     ID Copy
 
                                 </label>
@@ -167,7 +143,7 @@
                             </div>
 
                             <div class="form-group checkbox-control">
-                                <label for="Bankac" class="col-sm-6 control-label">
+                                <label class="col-sm-6 control-label">
                                     ID Bank account
 
                                 </label>
@@ -176,7 +152,7 @@
                                 </div>
                             </div>
                             <div class="form-group checkbox-control">
-                                <label for="PensionPresented" class="col-sm-6 control-label">
+                                <label class="col-sm-6 control-label">
                                     Pension check
                                 </label>
                                 <div class="col-sm-6 chcbox">
@@ -185,7 +161,7 @@
                             </div>
 
                             <div class="form-group checkbox-control">
-                                <label for="PensionPresented" class="col-sm-6 control-label">
+                                <label class="col-sm-6 control-label">
                                     Central register copy
 
                                 </label>
@@ -195,7 +171,7 @@
                             </div>
 
                             <div class="form-group checkbox-control">
-                                <label for="PensionPresented" class="col-sm-6 control-label">
+                                <label class="col-sm-6 control-label">
                                     Power of attorny
 
                                 </label>
@@ -204,7 +180,7 @@
                                 </div>
                             </div>
                             <div class="form-group checkbox-control">
-                                <label for="PensionPresented" class="col-sm-6 control-label">
+                                <label class="col-sm-6 control-label">
                                     Affidavit
                                 </label>
                                 <div class="col-sm-6 chcbox">
@@ -212,7 +188,7 @@
                                 </div>
                             </div>
                             <div class="form-group checkbox-control">
-                                <label for="PensionPresented" class="col-sm-6 control-label">
+                                <label class="col-sm-6 control-label">
                                     Confirmation
 
                                 </label>
@@ -222,7 +198,7 @@
                             </div>
 
                             <div class="form-group checkbox-control">
-                                <label for="PensionPresented" class="col-sm-6 control-label">
+                                <label class="col-sm-6 control-label">
                                     DRD Form
 
                                 </label>
@@ -232,7 +208,7 @@
                             </div>
 
                             <div class="form-group checkbox-control">
-                                <label for="PensionPresented" class="col-sm-6 control-label">
+                                <label class="col-sm-6 control-label">
                                     Declaration of receipt
 
                                 </label>
@@ -242,7 +218,7 @@
                             </div>
 
                             <div class="form-group checkbox-control">
-                                <label for="PensionPresented" class="col-sm-6 control-label">
+                                <label class="col-sm-6 control-label">
                                     Agreement
                                 </label>
                                 <div class="col-sm-6 chcbox">

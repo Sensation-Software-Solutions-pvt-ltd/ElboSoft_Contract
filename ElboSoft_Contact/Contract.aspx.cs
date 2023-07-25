@@ -15,6 +15,8 @@ namespace ElboSoft_Contact
     {
         public int RequestHeaderId = 0;
         public int ContractHeaderId = 0;
+        public string createdusername = "test";
+        public string lastupdatedusername = "test";
         private string GetConString()
         {
             return System.Configuration.ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
@@ -51,7 +53,6 @@ namespace ElboSoft_Contact
                 {
                     trContractHeaders = conn.Query<trContractHeader>(sqlQuery).FirstOrDefault();
                     ContractTypeID.SelectedItem.Value = trContractHeaders.ContractTypeID.ToString();
-                    Contractnumber.Text = trContractHeaders.ContractTypeID.ToString();
                     Requestnumber.Text = trContractHeaders.RequestNumber;
                     AmountNeeded.Text = trContractHeaders.TotalAmountNeeded.ToString();
                     CustomerID.SelectedItem.Value = trContractHeaders.CustomerID.ToString();
@@ -113,8 +114,7 @@ namespace ElboSoft_Contact
                 int drdformpresented = DRDForm.Checked == true ? 1 : 0;
                 int declarationofreceiptpresented = DeclarationReceipt.Checked == true ? 1 : 0;
                 int agtreementpresented = Agreement.Checked == true ? 1 : 0;
-                string createdusername = "test";
-                string lastupdatedusername = "test";
+              
                 string createddate = DateTime.Now.ToString("yyyy-MM-dd");
                 string RequestNumber = Requestnumber.Text.Trim();
                 // string sqlquery = string.Format("call public.insert_trrequestheader (1,{0},{1},{2},cast({3} as money),{4},{5},cast({6} as money),{7},{8},cast('{9}' as date),cast({10} as bit),cast({11} as bit),cast({12} as bit),cast({13} as bit),cast({14} as bit),cast({15} as bit),cast({16} as bit),cast({17} as bit),cast({18} as bit),cast({19} as bit),cast({20} as bit),'{21}','{22}')", RequestId, CustomerId, paymenttypeid, advanceamount, installments, totalamountneeded, bankgaranteeamount, subcompartmentid, purposeid, Requestdate, iscreatedcontract, idcopypresented, idbankaccountpresented, pensioncheckpresented, centralregistercopy, powerofattorney, affidavitpresented, confirmationpresented, drdformpresented, declarationofreceiptpresented, agtreementpresented, createdusername, lastupdatedusername);
@@ -446,8 +446,6 @@ namespace ElboSoft_Contact
                 int drdformpresented = DRDForm.Checked == true ? 1 : 0;
                 int declarationofreceiptpresented = DeclarationReceipt.Checked == true ? 1 : 0;
                 int agtreementpresented = Agreement.Checked == true ? 1 : 0;
-                string createdusername = "test";
-                string lastupdatedusername = "test";
                 string createddate = DateTime.Now.ToString("yyyy-MM-dd");
                 string RequestNumber = Request.QueryString["RequestNumber"].ToString();
 
@@ -461,7 +459,6 @@ namespace ElboSoft_Contact
                 //string month = ((DropDownList)RequestGrid.Rows[0].FindControl("ManagementUnit")).SelectedItem.Value;
                 for (int i = 0; i < ContractGrid.Rows.Count; i++)
                 {
-                    int SubcompartmentID = 0;
                     string month = ((DropDownList)ContractGrid.Rows[i].FindControl("Month")).SelectedItem.Value;
                     string VidoviEdinecniMeriID = ((DropDownList)ContractGrid.Rows[i].FindControl("Edinecnamera")).SelectedItem.Value;
                     string VidoviSortimentiID = ((DropDownList)ContractGrid.Rows[i].FindControl("Vidsortiment")).SelectedItem.Value;
@@ -469,7 +466,6 @@ namespace ElboSoft_Contact
                     string Price = ((TextBox)ContractGrid.Rows[i].FindControl("Price")).Text;
                     string subcomp = ((TextBox)ContractGrid.Rows[i].FindControl("SubcompartmentID")).Text;
                     int PriceDetailID = 0;
-                    int PlanId = 0;
                     sqlquery = string.Format("Update public.\"trContractLine\" set \"SubcompartmentID\"={0}, \"Month\"={1}, \"VidoviEdinecniMeriID\"={2}, \"VidoviSortimentiID\"={3}, \"Qty\"=cast({4} as money), \"PriceDetailID\"={5},\"Price\"=cast({6} as money),\"PlanID\"={7},  \"LastUpdatedUserName\"='{8}', \"LastUpdatedDate\"=cast('{9}' as date) where \"ContractHeaderID\"={10}", string.IsNullOrEmpty(subcomp) ? 0 : Convert.ToInt32(subcomp), string.IsNullOrEmpty(month) ? 0 : Convert.ToInt32(month), string.IsNullOrEmpty(VidoviEdinecniMeriID) ? 0 : Convert.ToInt32(VidoviEdinecniMeriID), string.IsNullOrEmpty(VidoviSortimentiID) ? 0 : Convert.ToInt32(VidoviSortimentiID), string.IsNullOrEmpty(Qty) ? 0 : Convert.ToDecimal(Qty), PriceDetailID, Price, 0, lastupdatedusername, createddate, ContractHeaderId);
                     using (var conn = new NpgsqlConnection(GetConString()))
                     {
