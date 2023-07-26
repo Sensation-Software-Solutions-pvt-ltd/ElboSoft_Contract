@@ -148,5 +148,14 @@ namespace ElboSoft_Contact
         {
             GetGridData(RequestType.SelectedItem.Value, RequestNumber.Text.Trim(), Customer.SelectedItem.Value, RequestDate.Text, ContractCreated.Checked);
         }
+
+        protected void btnClear_Click(object sender, EventArgs e)
+        {
+            RequestType.SelectedIndex = 0;
+            RequestNumber.Text = "";
+            Customer.SelectedIndex = 0;
+            RequestDate.Text = "";
+            ContractCreated.Checked = false;
+        }
     }
 }

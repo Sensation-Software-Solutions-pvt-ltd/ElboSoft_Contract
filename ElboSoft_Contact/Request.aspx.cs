@@ -465,8 +465,8 @@ namespace ElboSoft_Contact
                         TextBox Compartment = (TextBox)RequestGrid.Rows[rowIndex].Cells[3].FindControl("Compartment");
                         TextBox SubCompartment = (TextBox)RequestGrid.Rows[rowIndex].Cells[1].FindControl("SubcompartmentID");
                         DropDownList Month = (DropDownList)RequestGrid.Rows[rowIndex].Cells[2].FindControl("Month");
-                        DropDownList Edinecnamera = (DropDownList)RequestGrid.Rows[rowIndex].Cells[3].FindControl("Edinecnamera");
-                        DropDownList Vidsortiment = (DropDownList)RequestGrid.Rows[rowIndex].Cells[1].FindControl("Vidsortiment");
+                        DropDownList Edinecnamera = (DropDownList)RequestGrid.Rows[rowIndex].Cells[3].FindControl("VidoviEdinecniMeriID");
+                        DropDownList Vidsortiment = (DropDownList)RequestGrid.Rows[rowIndex].Cells[1].FindControl("VidoviSortimentiID");
                         TextBox Qty = (TextBox)RequestGrid.Rows[rowIndex].Cells[2].FindControl("Qty");
                         TextBox Price = (TextBox)RequestGrid.Rows[rowIndex].Cells[2].FindControl("Price");
                         drCurrentRow = dtCurrentTable.NewRow();
@@ -475,8 +475,8 @@ namespace ElboSoft_Contact
                         dtCurrentTable.Rows[i - 1]["Compartment"] = string.Empty;
                         dtCurrentTable.Rows[i - 1]["SubcompartmentID"] = string.Empty;
                         dtCurrentTable.Rows[i - 1]["Month"] = string.Empty;
-                        dtCurrentTable.Rows[i - 1]["Edinecnamera"] = string.Empty;
-                        dtCurrentTable.Rows[i - 1]["Vidsortiment"] = string.Empty;
+                        dtCurrentTable.Rows[i - 1]["VidoviEdinecniMeriID"] = string.Empty;
+                        dtCurrentTable.Rows[i - 1]["VidoviSortimentiID"] = string.Empty;
                         dtCurrentTable.Rows[i - 1]["Qty"] = string.Empty;
                         dtCurrentTable.Rows[i - 1]["Price"] = string.Empty;
                         rowIndex++;

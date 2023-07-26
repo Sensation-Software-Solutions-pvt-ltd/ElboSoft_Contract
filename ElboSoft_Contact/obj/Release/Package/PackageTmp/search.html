@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ASP.NET Application</title>
+<script src="js/modernizr-2.8.3.js"></script>
+<link href="css/bootstrap.css" rel="stylesheet">
+<link href="css/Site.css" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" rel="stylesheet">
+
+<body>
+    <form method="post" action="./Request">
+
+
+
+<script src="js/jquery-3.4.1.js" type="text/javascript"></script>
+<script src="js/bootstrap.js" type="text/javascript"></script>
+
+
+<script type="text/javascript">
+  
+  $(document).ready(()=>{
+    let template = ` <div class="form-group">
+                    <label for="firstName" class="col-sm-5 control-label">&nbsp;</label>
+                    <div class="col-sm-7 plus-control">
+                            <select class="form-control" name="ContractTypeID" id="ContractTypeID">
+                           </select> 
+                             <span class="glyphicon pls-icon glyphicon-minus remove-block" ></span>                      
+                    </div>
+
+
+                </div>`; 
+
+    $("#add").on("click", ()=>{
+        $("#items").append(template);
+    })
+    $("body").on("click", ".remove-block", (e)=>{
+        $(e.target).parent("div").parent('.form-group').remove();
+    })
+});
+
+</script>
+
+
+        <div class="navbar navbar-inverse navbar-fixed-top">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse" title="more options">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a href="https://localhost:44366/" class="navbar-brand">Application name</a>
+                </div>
+                <div class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav">
+                        <li><a href="https://localhost:44366/">Home</a></li>
+                        <li><a href="https://localhost:44366/Forms/Request">New Request</a></li>
+                        <li><a href="https://localhost:44366/Forms/SearchRequest">Search Request</a></li>
+                        <li><a href="https://localhost:44366/Forms/SearchContract">View all Contract</a></li>
+                    </ul>
+                    
+                            <ul class="nav navbar-nav navbar-right">
+                                <li><a href="https://localhost:44366/Account/Register">Register</a></li>
+                                <li><a href="https://localhost:44366/Account/Login">Log in</a></li>
+                            </ul>
+                        
+                </div>
+            </div>
+        </div>
+        <div class="container ">
+
+  
+          <main class="body_content">
+
+            <div class="row">
+              <div class="col-md-12 pageheader">
+  <h1>Search Form</h1>
+</div>
+            </div>
+
+
+<div class="widget">
+  
+
+
+<div class="row">
+
+
+<div class="col-md-3">
+    <div class="form-group">
+      <label for="email">Request Type</label>
+      <select class="form-control" >
+                        </select>
+    </div>
+</div>
+
+
+<div class="col-md-3">
+    <div class="form-group">
+      <label for="email">Request Number</label>
+      <input type="email" class="form-control" id="email" placeholder="Enter email" name="email">
+    </div>
+</div>
+
+<div class="col-md-3">
+    <div class="form-group">
+      <label for="email">Customer</label>
+     <select class="form-control" >
+                        </select>
+    </div>
+</div>
+
+
+<div class="col-md-3">
+    <div class="form-group">
+      <label for="email">Request Date</label>
+     <input type="date" id="RequestDate" placeholder="" name="RequestDate" class="form-control">
+    </div>
+</div>
+  
+<div class="col-md-3">
+     <label class="checkbox-inline">
+      <input type="checkbox" value="">Contract Created
+    </label>
+</div>
+</div>
+
+</div>
+
+
+
+<div class="tablebloxk">
+  <div class="row">
+    <div class="col-md-12">
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th>Request number</th>
+           <th>Customer</th>
+
+            <th>Purpose</th>             
+              <th>Request date</th>
+               <th>Contract created</th>
+               <th>Action</th>
+                
+        </tr>
+      </thead>
+
+      <tbody>
+        <tr>
+          <td> 1 </td>
+
+                         <td> 1</td>
+
+                         <td> 1</td>
+
+
+                          <td>10.05.2023 </td>
+
+                           <td><span  class="">  <span class="green"><i class="fa fa-check green"></i></span></span></td>                    
+
+                            <td class="action-block">
+                                <span class="blue"><i class="fa fa-edit"></i></span>
+                                <span class="red"><i class="fa fa-trash"></i></span>
+                                <span class="green"><i class="fa fa-plus"></i></span>
+                            </td>
+                         
+        </tr>
+
+        <tr>
+          <td> 1 </td>
+
+                         <td> 1</td>
+
+                         <td> 1</td>
+
+
+                          <td>10.05.2023 </td>
+
+                           <td><span  class="">  <span class="green"><i class="fa fa-check green"></i></span></span></td>                    
+
+                            <td class="action-block">
+                                <span class="blue"><i class="fa fa-edit"></i></span>
+                                <span class="red"><i class="fa fa-trash"></i></span>
+                                <span class="green"><i class="fa fa-plus"></i></span>
+                            </td>
+                         
+        </tr>
+
+
+        <tr>
+          <td> 1 </td>
+
+                         <td> 1</td>
+
+                         <td> 1</td>
+
+
+                          <td>10.05.2023 </td>
+
+                           <td><span  class="">  <span class="green"><i class="fa fa-check green"></i></span></span></td>                    
+
+                            <td class="action-block">
+                                <span class="blue"><i class="fa fa-edit" ></i></span>
+                                <span class="red"><i class="fa fa-trash"></i></span>
+                                <span class="green"><i class="fa fa-plus"></i></span>
+                            </td>
+                         
+        </tr>
+      </tbody>
+      
+    </table>
+    </div>
+  </div>
+
+
+<div class="action-bar">
+  <button class="btn btn-primary">Save</button>
+  
+</div>
+
+
+
+
+
+</div>
+
+
+
+
+</main>
+
+
+
+ 
+
+            <hr>
+            <footer>
+                <p>© 2023 - ASP.NET Application</p>
+            </footer>
+        </div>
+    
+</form>
+
+</body></html>
