@@ -248,17 +248,19 @@
                             <Columns>
                                 <asp:TemplateField HeaderText="Regional Center">
                                     <ItemTemplate>
+                                        <asp:Label ID="lblReginalCenter" runat="server" Text='<%# Eval("RegionalCenterId") %>' Visible = "false" />
                                         <asp:DropDownList ID="ReginalCenter" runat="server" class="form-control" ></asp:DropDownList>
                                     </ItemTemplate>
                                 </asp:TemplateField>
                                 <asp:TemplateField HeaderText="Management Unit">
                                     <ItemTemplate>
+                                        <asp:Label ID="lblManagementUnit" runat="server" Text='<%# Eval("ManagementUnitId") %>' Visible = "false" />
                                         <asp:DropDownList ID="ManagementUnit" runat="server" class="form-control"></asp:DropDownList>
                                     </ItemTemplate>
                                 </asp:TemplateField>
                                 <asp:TemplateField HeaderText="Compartment">
                                     <ItemTemplate>
-                                        <asp:TextBox ID="Compartment" TextMode="Number" runat="server" class="form-control" ></asp:TextBox>
+                                        <asp:TextBox ID="Compartment" TextMode="Number" runat="server" class="form-control" Text='<%# Bind("CompartmentId") %>'></asp:TextBox>
                                     </ItemTemplate>
                                 </asp:TemplateField>
                                 <asp:TemplateField HeaderText="SubCompartment">

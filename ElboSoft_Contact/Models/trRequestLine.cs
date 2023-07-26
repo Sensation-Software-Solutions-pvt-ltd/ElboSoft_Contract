@@ -19,8 +19,8 @@ namespace ElboSoft_Contact.Models
         public DateTime CreatedDate { get; set; }
         public string LastUpdatedUserName { get; set; }
         public DateTime LastUpdatedDate { get; set; }
-        public int ReginalCenter { get; set; }
-        public int ManagementUnit { get; set; }
-        public int Compartment { get; set; }
+        public int CompartmentId { get; set; }
+        public int RegionalCenterId { get; set; }
+        public int ManagementUnitId { get; set; }
     }
 }

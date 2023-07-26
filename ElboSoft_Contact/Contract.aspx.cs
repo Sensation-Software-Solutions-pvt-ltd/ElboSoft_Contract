@@ -4,6 +4,7 @@ using Npgsql;
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Data.Odbc;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
@@ -53,7 +54,7 @@ namespace ElboSoft_Contact
             string RequestTypeDes = ContractTypeDescription.Text;
             string sqlquery = string.Format("INSERT INTO public.\"cdRequestType\"(\"RequestTypeDescription\",\"SubmissionDeadline\")VALUES('{0}',1) RETURNING \"RequestTypeID\" ", RequestTypeDes);
 
-            using (var conn = new NpgsqlConnection(GetConString()))
+            using (var conn = new OdbcConnection(GetConString()))
             {
                 RequestTypeID = conn.Query<int>(sqlquery).FirstOrDefault();
             }
@@ -70,7 +71,7 @@ namespace ElboSoft_Contact
             trRequestHeader trContractHeaders = new trRequestHeader();
             try
             {
-                using (var conn = new NpgsqlConnection(GetConString()))
+                using (var conn = new OdbcConnection(GetConString()))
                 {
                     trContractHeaders = conn.Query<trRequestHeader>(sqlQuery).FirstOrDefault();
                     ContractTypeID.SelectedItem.Value = trContractHeaders.RequestTypeID.ToString();
@@ -117,7 +118,7 @@ namespace ElboSoft_Contact
                 trContractHeader trContractHeaders = new trContractHeader();
                 try
                 {
-                    using (var conn = new NpgsqlConnection(GetConString()))
+                    using (var conn = new OdbcConnection(GetConString()))
                     {
                         trContractHeaders = conn.Query<trContractHeader>(sqlQuery).FirstOrDefault();
                         ContractTypeID.SelectedItem.Value = trContractHeaders.ContractTypeID.ToString();
@@ -161,7 +162,7 @@ namespace ElboSoft_Contact
                 trRequestHeader trContractHeaders = new trRequestHeader();
                 try
                 {
-                    using (var conn = new NpgsqlConnection(GetConString()))
+                    using (var conn = new OdbcConnection(GetConString()))
                     {
                         trContractHeaders = conn.Query<trRequestHeader>(sqlQuery).FirstOrDefault();
                         ContractTypeID.SelectedItem.Value = trContractHeaders.RequestTypeID.ToString();
@@ -241,7 +242,7 @@ namespace ElboSoft_Contact
                 // string sqlquery = string.Format("call public.insert_trrequestheader (1,{0},{1},{2},cast({3} as money),{4},{5},cast({6} as money),{7},{8},cast('{9}' as date),cast({10} as bit),cast({11} as bit),cast({12} as bit),cast({13} as bit),cast({14} as bit),cast({15} as bit),cast({16} as bit),cast({17} as bit),cast({18} as bit),cast({19} as bit),cast({20} as bit),'{21}','{22}')", RequestId, CustomerId, paymenttypeid, advanceamount, installments, totalamountneeded, bankgaranteeamount, subcompartmentid, purposeid, Requestdate, iscreatedcontract, idcopypresented, idbankaccountpresented, pensioncheckpresented, centralregistercopy, powerofattorney, affidavitpresented, confirmationpresented, drdformpresented, declarationofreceiptpresented, agtreementpresented, createdusername, lastupdatedusername);
                 string sqlquery = string.Format("INSERT INTO public.\"trContractHeader\"(\"RequestHeaderID\", \"ContractTypeID\", \"CustomerID\",\"PaymentTypeID\", \"AdvanceAmount\", \"Installments\", \"TotalAmountNeeded\", \"BankGaranteeAmount\", \"SubcompartmentID\", \"PurposeID\",\"PilanaID\", \"ContractDate\", \"IDCopyPresented\", \"IDBankAccountPresented\", \"PensionCheckPresented\", \"CentralRegisterCopy\", \"PowerOfAttorney\", \"AffidavitPresented\", \"ConfirmationPresented\", \"DRDFormPresented\", \"DeclarationOfReceiptPresented\", \"AgtreementPresented\", \"CreatedUserName\", \"CreatedDate\", \"LastUpdatedUserName\", \"LastUpdatedDate\",\"RequestNumber\")VALUES({0},{1},{2},{3},cast({4} as money),{5},{6},cast({7} as money),{8},{9},{10},cast('{11}' as date),cast({12} as bit),cast({13} as bit),cast({14} as bit),cast({15} as bit),cast({16} as bit),cast({17} as bit),cast({18} as bit),cast({19} as bit),cast({20} as bit),cast({21} as bit),'{22}',cast('{23}' as date),'{24}',cast('{25}' as date),'{26}') RETURNING \"ContractHeaderID\" ", Convert.ToInt32(Request.QueryString["RequestId"]), ContractId, CustomerId, paymenttypeid, advanceamount, installments, totalamountneeded, bankgaranteeamount, subcompartmentid, purposeid, 0, Requestdate, idcopypresented, idbankaccountpresented, pensioncheckpresented, centralregistercopy, powerofattorney, affidavitpresented, confirmationpresented, drdformpresented, declarationofreceiptpresented, agtreementpresented, createdusername, createddate, lastupdatedusername, createddate, RequestNumber);
                 ContractHeaderId = 0;
-                using (var conn = new NpgsqlConnection(GetConString()))
+                using (var conn = new OdbcConnection(GetConString()))
                 {
                     ContractHeaderId = conn.Query<int>(sqlquery).FirstOrDefault();
                 }
@@ -249,18 +250,21 @@ namespace ElboSoft_Contact
                 //string month = ((DropDownList)RequestGrid.Rows[0].FindControl("ManagementUnit")).SelectedItem.Value;
                 for (int i = 0; i < ContractGrid.Rows.Count; i++)
                 {
-                    int SubcompartmentID = 0;
                     string month = ((DropDownList)ContractGrid.Rows[i].FindControl("Month")).SelectedItem.Value;
                     string VidoviEdinecniMeriID = ((DropDownList)ContractGrid.Rows[i].FindControl("Edinecnamera")).SelectedItem.Value;
                     string VidoviSortimentiID = ((DropDownList)ContractGrid.Rows[i].FindControl("Vidsortiment")).SelectedItem.Value;
+                    string ReginalCentralId = ((DropDownList)ContractGrid.Rows[i].FindControl("ReginalCenter")).SelectedItem.Value;
+                    string ManagementUnitId = ((DropDownList)ContractGrid.Rows[i].FindControl("ManagementUnit")).SelectedItem.Value;
                     string Qty = ((TextBox)ContractGrid.Rows[i].FindControl("Qty")).Text;
-                    string Price = ((TextBox)ContractGrid.Rows[i].FindControl("Price")).Text;
                     string subcomp = ((TextBox)ContractGrid.Rows[i].FindControl("SubcompartmentID")).Text;
+                    string compId = ((TextBox)ContractGrid.Rows[i].FindControl("Compartment")).Text;
+                    string Price = ((TextBox)ContractGrid.Rows[i].FindControl("Price")).Text;
+                   
                     int PriceDetailID = 0;
                     int PlanId = 0;
                     
-                    sqlquery = string.Format("INSERT INTO public.\"trContractLine\"(\"ContractHeaderID\", \"SubcompartmentID\", \"Month\", \"VidoviEdinecniMeriID\", \"VidoviSortimentiID\", \"Qty\", \"PriceDetailID\",\"Price\",\"PlanID\", \"CreatedUserName\", \"CreatedDate\", \"LastUpdatedUserName\", \"LastUpdatedDate\")VALUES({0},{1},{2},{3},{4},cast({5} as money),{6},cast({7} as money),{8},'{9}',cast('{10}' as date),'{11}',cast('{12}' as date)) RETURNING \"ContractLineID\" ", ContractHeaderId, string.IsNullOrEmpty(subcomp)?0:Convert.ToInt32(subcomp), string.IsNullOrEmpty(month) ? 0 : Convert.ToInt32(month), string.IsNullOrEmpty(VidoviEdinecniMeriID) ? 0 : Convert.ToInt32(VidoviEdinecniMeriID), string.IsNullOrEmpty(VidoviSortimentiID) ? 0 : Convert.ToInt32(VidoviSortimentiID), string.IsNullOrEmpty(Qty) ? 0 : Convert.ToDecimal(Qty), PriceDetailID, Price, 0, createdusername, createddate, lastupdatedusername, createddate);
-                    using (var conn = new NpgsqlConnection(GetConString()))
+                    sqlquery = string.Format("INSERT INTO public.\"trContractLine\"(\"ContractHeaderID\", \"SubcompartmentID\", \"Month\", \"VidoviEdinecniMeriID\", \"VidoviSortimentiID\", \"Qty\", \"PriceDetailID\",\"Price\",\"PlanID\", \"CreatedUserName\", \"CreatedDate\", \"LastUpdatedUserName\", \"LastUpdatedDate\", \"RegionalCenterId\", \"ManagementUnitId\", \"CompartmentId\")VALUES({0},{1},{2},{3},{4},cast({5} as money),{6},cast({7} as money),{8},'{9}',cast('{10}' as date),'{11}',cast('{12}' as date),{13},{14},{15}) RETURNING \"ContractLineID\" ", ContractHeaderId, string.IsNullOrEmpty(subcomp)?0:Convert.ToInt32(subcomp), string.IsNullOrEmpty(month) ? 0 : Convert.ToInt32(month), string.IsNullOrEmpty(VidoviEdinecniMeriID) ? 0 : Convert.ToInt32(VidoviEdinecniMeriID), string.IsNullOrEmpty(VidoviSortimentiID) ? 0 : Convert.ToInt32(VidoviSortimentiID), string.IsNullOrEmpty(Qty) ? 0 : Convert.ToDecimal(Qty), PriceDetailID, Price, 0, createdusername, createddate, lastupdatedusername, createddate, string.IsNullOrEmpty(ReginalCentralId) ? 0 : Convert.ToInt32(ReginalCentralId), string.IsNullOrEmpty(ManagementUnitId) ? 0 : Convert.ToInt32(ManagementUnitId), string.IsNullOrEmpty(compId) ? 0 : Convert.ToInt32(compId));
+                    using (var conn = new OdbcConnection(GetConString()))
                     {
                         result = conn.Query<int>(sqlquery).FirstOrDefault();
                     }
@@ -300,7 +304,7 @@ namespace ElboSoft_Contact
             List<cdPurpose> purposes = new List<cdPurpose>();
             try
             {
-                using (var conn = new NpgsqlConnection(GetConString()))
+                using (var conn = new OdbcConnection(GetConString()))
                 {
                     purposes = conn.Query<cdPurpose>(sqlQuery).ToList();
                     PurposeList.DataSource = purposes;
@@ -322,7 +326,7 @@ namespace ElboSoft_Contact
             List<cdRequestType> requestType = new List<cdRequestType>();
             try
             {
-                using (var conn = new NpgsqlConnection(GetConString()))
+                using (var conn = new OdbcConnection(GetConString()))
                 {
                     requestType = conn.Query<cdRequestType>(sqlQuery).ToList();
                     ContractTypeID.DataSource = requestType;
@@ -343,7 +347,7 @@ namespace ElboSoft_Contact
             List<cdCustomer> customers = new List<cdCustomer>();
             try
             {
-                using (var conn = new NpgsqlConnection(GetConString()))
+                using (var conn = new OdbcConnection(GetConString()))
                 {
                     customers = conn.Query<cdCustomer>(sqlQuery).ToList();
                     CustomerID.DataSource = customers;
@@ -364,7 +368,7 @@ namespace ElboSoft_Contact
             List<cdPaymentType> paymentTypes = new List<cdPaymentType>();
             try
             {
-                using (var conn = new NpgsqlConnection(GetConString()))
+                using (var conn = new OdbcConnection(GetConString()))
                 {
                     paymentTypes = conn.Query<cdPaymentType>(sqlQuery).ToList();
                     PaymentTypeID.DataSource = paymentTypes;
@@ -392,9 +396,11 @@ namespace ElboSoft_Contact
                 string month = (e.Row.FindControl("lblMonth") as Label).Text;
                 string edinecnamera = (e.Row.FindControl("lblEdinecnamera") as Label).Text;
                 string vidsortiment = (e.Row.FindControl("lblVidsortiment") as Label).Text;
+                string rcenter = (e.Row.FindControl("lblReginalCenter") as Label).Text;
+                string munit = (e.Row.FindControl("lblManagementUnit") as Label).Text;
                 try
                 {
-                    using (var conn = new NpgsqlConnection(GetConString()))
+                    using (var conn = new OdbcConnection(GetConString()))
                     {
                         List<RegionalCenters> paymentTypes = conn.Query<RegionalCenters>("select * from public.\"RegionalCenters\"").ToList();
                         ReginalCenter.DataSource = paymentTypes;
@@ -433,6 +439,14 @@ namespace ElboSoft_Contact
                         {
                             Vidsortiment.Items.FindByValue(vidsortiment).Selected = true;
                         }
+                        if (!string.IsNullOrEmpty(rcenter))
+                        {
+                            ReginalCenter.Items.FindByValue(rcenter).Selected = true;
+                        }
+                        if (!string.IsNullOrEmpty(munit))
+                        {
+                            ManagementUnit.Items.FindByValue(munit).Selected = true;
+                        }
                     }
                 }
                 catch (Exception ex)
@@ -446,9 +460,9 @@ namespace ElboSoft_Contact
         {
             DataTable dt = new DataTable();
             DataRow dr = null;
-            dt.Columns.Add(new DataColumn("ReginalCenter", typeof(string)));
-            dt.Columns.Add(new DataColumn("ManagementUnit", typeof(string)));
-            dt.Columns.Add(new DataColumn("Compartment", typeof(string)));
+            dt.Columns.Add(new DataColumn("RegionalCenterId", typeof(string)));
+            dt.Columns.Add(new DataColumn("ManagementUnitId", typeof(string)));
+            dt.Columns.Add(new DataColumn("CompartmentId", typeof(string)));
             dt.Columns.Add(new DataColumn("SubcompartmentID", typeof(string)));
             dt.Columns.Add(new DataColumn("Month", typeof(string)));
             dt.Columns.Add(new DataColumn("VidoviEdinecniMeriID", typeof(string)));
@@ -456,9 +470,9 @@ namespace ElboSoft_Contact
             dt.Columns.Add(new DataColumn("Qty", typeof(string)));
             dt.Columns.Add(new DataColumn("Price", typeof(string)));
             dr = dt.NewRow();
-            dr["ReginalCenter"] = string.Empty;
-            dr["ManagementUnit"] = string.Empty;
-            dr["Compartment"] = string.Empty;
+            dr["RegionalCenterId"] = string.Empty;
+            dr["ManagementUnitId"] = string.Empty;
+            dr["CompartmentId"] = string.Empty;
             dr["SubcompartmentID"] = string.Empty;
             dr["Month"] = string.Empty;
             dr["VidoviEdinecniMeriID"] = string.Empty;
@@ -492,9 +506,9 @@ namespace ElboSoft_Contact
                         TextBox Qty = (TextBox)ContractGrid.Rows[rowIndex].Cells[2].FindControl("Qty");
                         TextBox Price = (TextBox)ContractGrid.Rows[rowIndex].Cells[2].FindControl("Price");
                         drCurrentRow = dtCurrentTable.NewRow();
-                        dtCurrentTable.Rows[i - 1]["ReginalCenter"] = string.Empty;
-                        dtCurrentTable.Rows[i - 1]["ManagementUnit"] = string.Empty;
-                        dtCurrentTable.Rows[i - 1]["Compartment"] = string.Empty;
+                        dtCurrentTable.Rows[i - 1]["RegionalCenterId"] = string.Empty;
+                        dtCurrentTable.Rows[i - 1]["ManagementUnitId"] = string.Empty;
+                        dtCurrentTable.Rows[i - 1]["CompartmentId"] = string.Empty;
                         dtCurrentTable.Rows[i - 1]["SubcompartmentID"] = string.Empty;
                         dtCurrentTable.Rows[i - 1]["Month"] = string.Empty;
                         dtCurrentTable.Rows[i - 1]["VidoviEdinecniMeriID"] = string.Empty;
@@ -588,7 +602,7 @@ namespace ElboSoft_Contact
 
                 string sqlquery = string.Format("Update public.\"trContractHeader\" set  \"ContractTypeID\"={0}, \"CustomerID\"={1},\"PaymentTypeID\"={2}, \"AdvanceAmount\"=cast({3} as money), \"Installments\"={4}, \"TotalAmountNeeded\"={5}, \"BankGaranteeAmount\"=cast({6} as money), \"SubcompartmentID\"={7}, \"PurposeID\"={8},\"PilanaID\"={9}, \"ContractDate\"=cast('{10}' as date), \"IDCopyPresented\"=cast({11} as bit), \"IDBankAccountPresented\"=cast({12} as bit), \"PensionCheckPresented\"=cast({13} as bit), \"CentralRegisterCopy\"=cast({14} as bit), \"PowerOfAttorney\"=cast({15} as bit), \"AffidavitPresented\"=cast({16} as bit), \"ConfirmationPresented\"=cast({17} as bit), \"DRDFormPresented\"=cast({18} as bit), \"DeclarationOfReceiptPresented\"=cast({19} as bit), \"AgtreementPresented\"=cast({20} as bit), \"LastUpdatedUserName\"='{21}', \"LastUpdatedDate\"=cast('{22}' as date),\"RequestNumber\"='{23}' where \"RequestHeaderID\"={24}", ContractId, CustomerId, paymenttypeid, advanceamount, installments, totalamountneeded, bankgaranteeamount, subcompartmentid, purposeid, 0, Requestdate, idcopypresented, idbankaccountpresented, pensioncheckpresented, centralregistercopy, powerofattorney, affidavitpresented, confirmationpresented, drdformpresented, declarationofreceiptpresented, agtreementpresented, lastupdatedusername, createddate, RequestNumber,Convert.ToInt32(ViewState["Id"]));
                 int result = 0;
-                using (var conn = new NpgsqlConnection(GetConString()))
+                using (var conn = new OdbcConnection(GetConString()))
                 {
                     result = conn.Query<int>(sqlquery).FirstOrDefault();
                 }
@@ -599,12 +613,15 @@ namespace ElboSoft_Contact
                     string month = ((DropDownList)ContractGrid.Rows[i].FindControl("Month")).SelectedItem.Value;
                     string VidoviEdinecniMeriID = ((DropDownList)ContractGrid.Rows[i].FindControl("Edinecnamera")).SelectedItem.Value;
                     string VidoviSortimentiID = ((DropDownList)ContractGrid.Rows[i].FindControl("Vidsortiment")).SelectedItem.Value;
+                    string ReginalCentralId = ((DropDownList)ContractGrid.Rows[i].FindControl("ReginalCenter")).SelectedItem.Value;
+                    string ManagementUnitId = ((DropDownList)ContractGrid.Rows[i].FindControl("ManagementUnit")).SelectedItem.Value;
                     string Qty = ((TextBox)ContractGrid.Rows[i].FindControl("Qty")).Text;
-                    string Price = ((TextBox)ContractGrid.Rows[i].FindControl("Price")).Text;
                     string subcomp = ((TextBox)ContractGrid.Rows[i].FindControl("SubcompartmentID")).Text;
+                    string compId = ((TextBox)ContractGrid.Rows[i].FindControl("Compartment")).Text;
+                    string Price = ((TextBox)ContractGrid.Rows[i].FindControl("Price")).Text;
                     int PriceDetailID = 0;
-                    sqlquery = string.Format("Update public.\"trContractLine\" set \"SubcompartmentID\"={0}, \"Month\"={1}, \"VidoviEdinecniMeriID\"={2}, \"VidoviSortimentiID\"={3}, \"Qty\"=cast({4} as money), \"PriceDetailID\"={5},\"Price\"=cast({6} as money),\"PlanID\"={7},  \"LastUpdatedUserName\"='{8}', \"LastUpdatedDate\"=cast('{9}' as date) where \"ContractHeaderID\"={10}", string.IsNullOrEmpty(subcomp) ? 0 : Convert.ToInt32(subcomp), string.IsNullOrEmpty(month) ? 0 : Convert.ToInt32(month), string.IsNullOrEmpty(VidoviEdinecniMeriID) ? 0 : Convert.ToInt32(VidoviEdinecniMeriID), string.IsNullOrEmpty(VidoviSortimentiID) ? 0 : Convert.ToInt32(VidoviSortimentiID), string.IsNullOrEmpty(Qty) ? 0 : Convert.ToDecimal(Qty), PriceDetailID, Price, 0, lastupdatedusername, createddate, Convert.ToInt32(ViewState["ConractId"]));
-                    using (var conn = new NpgsqlConnection(GetConString()))
+                    sqlquery = string.Format("Update public.\"trContractLine\" set \"SubcompartmentID\"={0}, \"Month\"={1}, \"VidoviEdinecniMeriID\"={2}, \"VidoviSortimentiID\"={3}, \"Qty\"=cast({4} as money), \"PriceDetailID\"={5},\"Price\"=cast({6} as money),\"PlanID\"={7},  \"LastUpdatedUserName\"='{8}', \"LastUpdatedDate\"=cast('{9}' as date), \"RegionalCenterId\"={10}, \"ManagementUnitId\"={11}, \"CompartmentId\"={12} where \"ContractHeaderID\"={13}", string.IsNullOrEmpty(subcomp) ? 0 : Convert.ToInt32(subcomp), string.IsNullOrEmpty(month) ? 0 : Convert.ToInt32(month), string.IsNullOrEmpty(VidoviEdinecniMeriID) ? 0 : Convert.ToInt32(VidoviEdinecniMeriID), string.IsNullOrEmpty(VidoviSortimentiID) ? 0 : Convert.ToInt32(VidoviSortimentiID), string.IsNullOrEmpty(Qty) ? 0 : Convert.ToDecimal(Qty), PriceDetailID, Price, 0, lastupdatedusername, createddate, string.IsNullOrEmpty(ReginalCentralId) ? 0 : Convert.ToInt32(ReginalCentralId), string.IsNullOrEmpty(ManagementUnitId) ? 0 : Convert.ToInt32(ManagementUnitId), string.IsNullOrEmpty(compId) ? 0 : Convert.ToInt32(compId), Convert.ToInt32(ViewState["ConractId"]));
+                    using (var conn = new OdbcConnection(GetConString()))
                     {
                         result = conn.Query<int>(sqlquery).FirstOrDefault();
                     }

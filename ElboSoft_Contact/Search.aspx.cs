@@ -3,6 +3,7 @@ using ElboSoft_Contact.Models;
 using Npgsql;
 using System;
 using System.Collections.Generic;
+using System.Data.Odbc;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
@@ -61,9 +62,10 @@ namespace ElboSoft_Contact
             List<SearchData> searchData = new List<SearchData>();
             try
             {
-                using (var conn = new NpgsqlConnection(GetConString()))
+                using (var conn = new OdbcConnection(GetConString()))
                 {
                     searchData = conn.Query<SearchData>(sqlQuery).ToList();
+
                     SearchGrid.DataSource = searchData;
                     SearchGrid.DataBind();
                 }
@@ -79,7 +81,7 @@ namespace ElboSoft_Contact
             List<cdCustomer> customers = new List<cdCustomer>();
             try
             {
-                using (var conn = new NpgsqlConnection(GetConString()))
+                using (var conn = new OdbcConnection(GetConString()))
                 {
                     customers = conn.Query<cdCustomer>(sqlQuery).ToList();
                     Customer.DataSource = customers;
@@ -102,7 +104,7 @@ namespace ElboSoft_Contact
             List<cdRequestType> requestType = new List<cdRequestType>();
             try
             {
-                using (var conn = new NpgsqlConnection(GetConString()))
+                using (var conn = new OdbcConnection(GetConString()))
                 {
                     requestType = conn.Query<cdRequestType>(sqlQuery).ToList();
                     RequestType.DataSource = requestType;
@@ -126,11 +128,10 @@ namespace ElboSoft_Contact
         protected void deleterecord_Click(object sender, EventArgs e)
         {
             int id=Convert.ToInt32(hiddenrquestno.Value);
-            string sqlQuery = "select * from public.\"cdRequestType\"";
             List<cdRequestType> requestType = new List<cdRequestType>();
             try
             {
-                using (var conn = new NpgsqlConnection(GetConString()))
+                using (var conn = new OdbcConnection(GetConString()))
                 {
                  var   deletedRequest = conn.Query<cdRequestType>("delete from public.\"trRequestLine\" where \"RequestHeaderID\"="+id);
                     deletedRequest = conn.Query<cdRequestType>("delete from public.\"trRequestHeader\" where \"RequestHeaderID\"=" + id);

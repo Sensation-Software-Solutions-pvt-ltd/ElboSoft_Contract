@@ -12,7 +12,7 @@ namespace ElboSoft_Contact.Models
         public int CustomerID { get; set; }
         public int PurposeID { get; set; }
         public DateTime RequestDate { get; set; }
-        public bool IsCreatedContract { get; set; }
+        public int IsCreatedContract { get; set; }
         public string RequestNumber { get; set; }
         
     }

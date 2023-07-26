@@ -9,6 +9,7 @@ namespace ElboSoft_Contact.Models
     {
         public int ContractLineID { get; set; }
         public int ContractHeaderID { get; set; }
+        public int CompartmentId { get; set; }
         public int SubcompartmentID { get; set; }
         public int Month { get; set; }
         public int VidoviEdinecniMeriID { get; set; }
@@ -17,6 +18,8 @@ namespace ElboSoft_Contact.Models
         public decimal Price { get; set; }
         public int PlanID { get; set; }
         public int PriceDetailID { get; set; }
+        public int RegionalCenterId { get; set; }
+        public int ManagementUnitId { get; set; }
         public string CreatedUserName { get; set; }
         public DateTime CreatedDate { get; set; }
         public string LastUpdatedUserName { get; set; }
