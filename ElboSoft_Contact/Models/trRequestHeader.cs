@@ -18,17 +18,17 @@ namespace ElboSoft_Contact.Models
         public int SubcompartmentID { get; set; }
         public int PurposeID { get; set; }
         public DateTime RequestDate { get; set; }
-        public Boolean IsCreatedContract { get; set; }
-        public bool IDCopyPresented { get; set; }
-        public bool IDBankAccountPresented { get; set; }
-        public bool PensionCheckPresented { get; set; }
-        public bool CentralRegisterCopy { get; set; }
-        public bool PowerOfAttorney { get; set; }
-        public bool AffidavitPresented { get; set; }
-        public bool ConfirmationPresented { get; set; }
-        public bool DRDFormPresented { get; set; }
-        public bool DeclarationOfReceiptPresented { get; set; }
-        public bool AgtreementPresented { get; set; }
+        public int IsCreatedContract { get; set; }
+        public int IDCopyPresented { get; set; }
+        public int IDBankAccountPresented { get; set; }
+        public int PensionCheckPresented { get; set; }
+        public int CentralRegisterCopy { get; set; }
+        public int PowerOfAttorney { get; set; }
+        public int AffidavitPresented { get; set; }
+        public int ConfirmationPresented { get; set; }
+        public int DRDFormPresented { get; set; }
+        public int DeclarationOfReceiptPresented { get; set; }
+        public int AgtreementPresented { get; set; }
         public string CreatedUserName { get; set; }
         public DateTime CreatedDate { get; set; }
         public string LastUpdatedUserName { get; set; }

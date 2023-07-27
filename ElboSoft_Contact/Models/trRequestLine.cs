@@ -14,6 +14,7 @@ namespace ElboSoft_Contact.Models
         public int VidoviEdinecniMeriID { get; set; }
         public int VidoviSortimentiID { get; set; }
         public decimal Qty { get; set; }
+        public decimal Price { get; set; }
         public int PriceDetailID { get; set; }
         public string CreatedUserName { get; set; }
         public DateTime CreatedDate { get; set; }

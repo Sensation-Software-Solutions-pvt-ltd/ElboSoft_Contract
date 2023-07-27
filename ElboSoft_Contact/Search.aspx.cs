@@ -136,6 +136,7 @@ namespace ElboSoft_Contact
                  var   deletedRequest = conn.Query<cdRequestType>("delete from public.\"trRequestLine\" where \"RequestHeaderID\"="+id);
                     deletedRequest = conn.Query<cdRequestType>("delete from public.\"trRequestHeader\" where \"RequestHeaderID\"=" + id);
                 }
+                ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert('Record deleted successfully.')", true);
                 GetGridData(RequestType.SelectedItem.Value, RequestNumber.Text.Trim(), Customer.SelectedItem.Value, RequestDate.Text, ContractCreated.Checked);
             }
             catch (Exception ex)

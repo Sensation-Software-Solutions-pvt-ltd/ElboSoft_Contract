@@ -27,7 +27,7 @@ namespace ElboSoft_Contact
 
             if (!Page.IsPostBack)
             {
-                SetInitialRow();
+                int count = 0;
                 GetContractType();
                 GetCustomer();
                 GetPaymentType();
@@ -35,16 +35,16 @@ namespace ElboSoft_Contact
                 if (Request.QueryString["RequestId"] != null && !string.IsNullOrEmpty(Request.QueryString["RequestId"].ToString()))
                 {
                     string RequestId = Request.QueryString["RequestId"].ToString();
-                    BindRequestdata(RequestId);
+                   count= BindRequestdata(RequestId);
                 }
                 if (Request.QueryString["ContractId"] != null && !string.IsNullOrEmpty(Request.QueryString["ContractId"].ToString()))
                 {
                     string RequestId = Request.QueryString["ContractId"].ToString();
-                    BindContractdata(RequestId);
+                   count= BindContractdata(RequestId);
                     adddiv.Visible = false;
                     updatediv.Visible = true;
-                    ButtonAdd.Visible = false;
                 }
+                SetInitialRow(count);
             }
 
         }
@@ -63,9 +63,9 @@ namespace ElboSoft_Contact
             ContractTypeDescription.Text = string.Empty;
             return RequestTypeID;
         }
-        private void BindRequestdata(string RequestId)
+        private int BindRequestdata(string RequestId)
         {
-            
+            int count = 1;
             string sqlQuery = string.Format("select * from public.\"trRequestHeader\" where \"RequestHeaderID\"={0}", RequestId);
             ViewState["Id"] = RequestId;
             trRequestHeader trContractHeaders = new trRequestHeader();
@@ -84,31 +84,41 @@ namespace ElboSoft_Contact
                     BankGuaranteeAmount.Text = trContractHeaders.BankGaranteeAmount.ToString();
                     PurposeList.SelectedItem.Value = trContractHeaders.PurposeID.ToString();
                     RequestDate.Text = trContractHeaders.RequestDate.ToString("yyyy-MM-dd");
-                    IDCopy.Checked = trContractHeaders.IDCopyPresented;
-                    BankAccountId.Checked = trContractHeaders.IDBankAccountPresented;
-                    PensionCheck.Checked = trContractHeaders.PensionCheckPresented;
-                    RegisterCopy.Checked = trContractHeaders.CentralRegisterCopy;
-                    PowerAttorney.Checked = trContractHeaders.PowerOfAttorney;
-                    Affiadavit.Checked = trContractHeaders.AffidavitPresented;
-                    Confirmation.Checked = trContractHeaders.ConfirmationPresented;
-                    DRDForm.Checked = trContractHeaders.DRDFormPresented;
-                    DeclarationReceipt.Checked = trContractHeaders.DeclarationOfReceiptPresented;
-                    Agreement.Checked = trContractHeaders.AgtreementPresented;
+                    IDCopy.Checked = Convert.ToBoolean(trContractHeaders.IDCopyPresented);
+                    BankAccountId.Checked = Convert.ToBoolean(trContractHeaders.IDBankAccountPresented);
+                    PensionCheck.Checked = Convert.ToBoolean(trContractHeaders.PensionCheckPresented);
+                    RegisterCopy.Checked = Convert.ToBoolean(trContractHeaders.CentralRegisterCopy);
+                    PowerAttorney.Checked = Convert.ToBoolean(trContractHeaders.PowerOfAttorney);
+                    Affiadavit.Checked = Convert.ToBoolean(trContractHeaders.AffidavitPresented);
+                    Confirmation.Checked = Convert.ToBoolean(trContractHeaders.ConfirmationPresented);
+                    DRDForm.Checked = Convert.ToBoolean(trContractHeaders.DRDFormPresented);
+                    DeclarationReceipt.Checked = Convert.ToBoolean(trContractHeaders.DeclarationOfReceiptPresented);
+                    Agreement.Checked = Convert.ToBoolean(trContractHeaders.AgtreementPresented);
 
-                    sqlQuery = "select * from public.\"trContractLine\" where \"ContractHeaderID\" in(select \"ContractHeaderID\" from public.\"trContractHeader\" where \"RequestHeaderID\"=" + RequestId + ")";
+                    sqlQuery = "select * from public.\"trRequestLine\" where \"RequestHeaderID\" ="+RequestId;
                     List<trContractLine> requestLine = conn.Query<trContractLine>(sqlQuery).ToList();
-                    ContractGrid.DataSource = requestLine;
-                    ContractGrid.DataBind();
+                    if (requestLine.Count ==0)
+                    {
+                        SetInitialRow(0);
+                    }
+                    else
+                    {
+                        ContractGrid.DataSource = requestLine;
+                        ContractGrid.DataBind();
+                        count = requestLine.Count;
+                    }
+                   
                 }
             }
             catch (Exception ex)
             {
                 string error = ex.Message;
             }
-
+            return count;
         }
-        private void BindContractdata(string RequestId)
+        private int BindContractdata(string RequestId)
         {
+            int count = 1;
             string sqlQuery = string.Empty;
             if (RequestId.Contains("c"))
             {
@@ -131,23 +141,24 @@ namespace ElboSoft_Contact
                         BankGuaranteeAmount.Text = trContractHeaders.BankGaranteeAmount.ToString();
                         PurposeList.SelectedItem.Value = trContractHeaders.PurposeID.ToString();
                         RequestDate.Text = trContractHeaders.RequestDate.ToString("yyyy-MM-dd");
-                        IDCopy.Checked = trContractHeaders.IDCopyPresented;
-                        BankAccountId.Checked = trContractHeaders.IDBankAccountPresented;
-                        PensionCheck.Checked = trContractHeaders.PensionCheckPresented;
-                        RegisterCopy.Checked = trContractHeaders.CentralRegisterCopy;
-                        PowerAttorney.Checked = trContractHeaders.PowerOfAttorney;
-                        Affiadavit.Checked = trContractHeaders.AffidavitPresented;
-                        Confirmation.Checked = trContractHeaders.ConfirmationPresented;
-                        DRDForm.Checked = trContractHeaders.DRDFormPresented;
-                        DeclarationReceipt.Checked = trContractHeaders.DeclarationOfReceiptPresented;
-                        Agreement.Checked = trContractHeaders.AgtreementPresented;
+                        IDCopy.Checked = Convert.ToBoolean(trContractHeaders.IDCopyPresented);
+                        BankAccountId.Checked = Convert.ToBoolean(trContractHeaders.IDBankAccountPresented);
+                        PensionCheck.Checked = Convert.ToBoolean(trContractHeaders.PensionCheckPresented);
+                        RegisterCopy.Checked = Convert.ToBoolean(trContractHeaders.CentralRegisterCopy);
+                        PowerAttorney.Checked = Convert.ToBoolean(trContractHeaders.PowerOfAttorney);
+                        Affiadavit.Checked = Convert.ToBoolean(trContractHeaders.AffidavitPresented);
+                        Confirmation.Checked = Convert.ToBoolean(trContractHeaders.ConfirmationPresented);
+                        DRDForm.Checked = Convert.ToBoolean(trContractHeaders.DRDFormPresented);
+                        DeclarationReceipt.Checked = Convert.ToBoolean(trContractHeaders.DeclarationOfReceiptPresented);
+                        Agreement.Checked = Convert.ToBoolean(trContractHeaders.AgtreementPresented);
 
                         RequestHeaderId = trContractHeaders.RequestHeaderID;
-                        sqlQuery = "select * from public.\"trContractLine\" where \"ContractHeaderID\" in(select \"ContractHeaderID\" from public.\"trContractHeader\" where \"RequestHeaderID\"=" + RequestId + ")";
+                        sqlQuery = "select * from public.\"trContractLine\" where \"ContractHeaderID\"="+RequestId;
                         List<trContractLine> requestLine = conn.Query<trContractLine>(sqlQuery).ToList();
                         ContractGrid.DataSource = requestLine;
                         ContractGrid.DataBind();
                         ViewState["ConractId"] = requestLine[0].ContractHeaderID;
+                        count = requestLine.Count;
                     }
                 }
                 catch (Exception ex)
@@ -175,16 +186,16 @@ namespace ElboSoft_Contact
                         BankGuaranteeAmount.Text = trContractHeaders.BankGaranteeAmount.ToString();
                         PurposeList.SelectedItem.Value = trContractHeaders.PurposeID.ToString();
                         RequestDate.Text = trContractHeaders.RequestDate.ToString("yyyy-MM-dd");
-                        IDCopy.Checked = trContractHeaders.IDCopyPresented;
-                        BankAccountId.Checked = trContractHeaders.IDBankAccountPresented;
-                        PensionCheck.Checked = trContractHeaders.PensionCheckPresented;
-                        RegisterCopy.Checked = trContractHeaders.CentralRegisterCopy;
-                        PowerAttorney.Checked = trContractHeaders.PowerOfAttorney;
-                        Affiadavit.Checked = trContractHeaders.AffidavitPresented;
-                        Confirmation.Checked = trContractHeaders.ConfirmationPresented;
-                        DRDForm.Checked = trContractHeaders.DRDFormPresented;
-                        DeclarationReceipt.Checked = trContractHeaders.DeclarationOfReceiptPresented;
-                        Agreement.Checked = trContractHeaders.AgtreementPresented;
+                        IDCopy.Checked = Convert.ToBoolean(trContractHeaders.IDCopyPresented);
+                        BankAccountId.Checked = Convert.ToBoolean(trContractHeaders.IDBankAccountPresented);
+                        PensionCheck.Checked = Convert.ToBoolean(trContractHeaders.PensionCheckPresented);
+                        RegisterCopy.Checked = Convert.ToBoolean(trContractHeaders.CentralRegisterCopy);
+                        PowerAttorney.Checked = Convert.ToBoolean(trContractHeaders.PowerOfAttorney);
+                        Affiadavit.Checked = Convert.ToBoolean(trContractHeaders.AffidavitPresented);
+                        Confirmation.Checked = Convert.ToBoolean(trContractHeaders.ConfirmationPresented);
+                        DRDForm.Checked = Convert.ToBoolean(trContractHeaders.DRDFormPresented);
+                        DeclarationReceipt.Checked = Convert.ToBoolean(trContractHeaders.DeclarationOfReceiptPresented);
+                        Agreement.Checked = Convert.ToBoolean(trContractHeaders.AgtreementPresented);
 
                         RequestHeaderId = trContractHeaders.RequestHeaderID;
                         sqlQuery = "select * from public.\"trContractLine\" where \"ContractHeaderID\" in(select \"ContractHeaderID\" from public.\"trContractHeader\" where \"RequestHeaderID\"=" + RequestId + ")";
@@ -192,6 +203,7 @@ namespace ElboSoft_Contact
                         ContractGrid.DataSource = requestLine;
                         ContractGrid.DataBind();
                         ViewState["ConractId"] = requestLine[0].ContractHeaderID;
+                        count = requestLine.Count;
                     }
                 }
                 catch (Exception ex)
@@ -199,9 +211,7 @@ namespace ElboSoft_Contact
                     string error = ex.Message;
                 }
             }
-
-            
-
+            return count;
         }
         protected void Savebutton_Click(object sender, EventArgs e)
         {
@@ -212,6 +222,15 @@ namespace ElboSoft_Contact
             }
             else
             {
+                if (Request.QueryString["RequestId"] != null && !string.IsNullOrEmpty(Request.QueryString["RequestId"].ToString()))
+                {
+                    string sqlquery1 = string.Format("UPDATE public.\"trRequestHeader\" SET \"IsCreatedContract\"=cast(1 as bit)  WHERE \"RequestHeaderID\"={0}; ", Request.QueryString["RequestId"].ToString());
+                    using (var conn = new OdbcConnection(GetConString()))
+                    {
+                        var res = conn.Query(sqlquery1);
+                    }
+                }
+                
                 int ContractId = Convert.ToInt32(ContractTypeID.SelectedItem.Value.Trim());
                 if (!string.IsNullOrEmpty(ContractTypeDescription.Text))
                 {
@@ -456,7 +475,7 @@ namespace ElboSoft_Contact
 
             }
         }
-        private void SetInitialRow()
+        private void SetInitialRow(int initialRowCount)
         {
             DataTable dt = new DataTable();
             DataRow dr = null;
@@ -469,21 +488,40 @@ namespace ElboSoft_Contact
             dt.Columns.Add(new DataColumn("VidoviSortimentiID", typeof(string)));
             dt.Columns.Add(new DataColumn("Qty", typeof(string)));
             dt.Columns.Add(new DataColumn("Price", typeof(string)));
-            dr = dt.NewRow();
-            dr["RegionalCenterId"] = string.Empty;
-            dr["ManagementUnitId"] = string.Empty;
-            dr["CompartmentId"] = string.Empty;
-            dr["SubcompartmentID"] = string.Empty;
-            dr["Month"] = string.Empty;
-            dr["VidoviEdinecniMeriID"] = string.Empty;
-            dr["VidoviSortimentiID"] = string.Empty;
-            dr["Qty"] = string.Empty;
-            dr["Price"] = string.Empty;
-            dt.Rows.Add(dr);
+            if (initialRowCount == 0)
+            {
+                dr = dt.NewRow();
+                dr["RegionalCenterId"] = "1";
+                dr["ManagementUnitId"] = "1";
+                dr["CompartmentId"] = string.Empty;
+                dr["SubcompartmentID"] = string.Empty;
+                dr["Month"] = "1";
+                dr["VidoviEdinecniMeriID"] = "1";
+                dr["VidoviSortimentiID"] = "1";
+                dr["Qty"] = string.Empty;
+                dr["Price"] = string.Empty;
+                dt.Rows.Add(dr);
+                ContractGrid.DataSource = dt;
+                ContractGrid.DataBind();
+            }
+            else
+            {
+                for (int i = 1; i <= initialRowCount; i++)
+                {
+                    dr = dt.NewRow();
+                    dr["RegionalCenterId"] = "1";
+                    dr["ManagementUnitId"] = "1";
+                    dr["CompartmentId"] = string.Empty;
+                    dr["SubcompartmentID"] = string.Empty;
+                    dr["Month"] = "1";
+                    dr["VidoviEdinecniMeriID"] = "1";
+                    dr["VidoviSortimentiID"] = "1";
+                    dr["Qty"] = string.Empty;
+                    dr["Price"] = string.Empty;
+                    dt.Rows.Add(dr);
+                }
+            }
             ViewState["CurrentTable"] = dt;
-            ContractGrid.DataSource = dt;
-            ContractGrid.DataBind();
-
         }
         private void AddNewRowToGrid()
         {
@@ -496,25 +534,25 @@ namespace ElboSoft_Contact
                 {
                     for (int i = 1; i <= dtCurrentTable.Rows.Count; i++)
                     {
-                        DropDownList ReginalCenter = (DropDownList)ContractGrid.Rows[rowIndex].Cells[1].FindControl("ReginalCenter");
-                        DropDownList ManagementUnit = (DropDownList)ContractGrid.Rows[rowIndex].Cells[2].FindControl("ManagementUnit");
-                        TextBox Compartment = (TextBox)ContractGrid.Rows[rowIndex].Cells[3].FindControl("Compartment");
-                        TextBox SubCompartment = (TextBox)ContractGrid.Rows[rowIndex].Cells[1].FindControl("SubcompartmentID");
-                        DropDownList Month = (DropDownList)ContractGrid.Rows[rowIndex].Cells[2].FindControl("Month");
-                        DropDownList Edinecnamera = (DropDownList)ContractGrid.Rows[rowIndex].Cells[3].FindControl("VidoviEdinecniMeriID");
-                        DropDownList Vidsortiment = (DropDownList)ContractGrid.Rows[rowIndex].Cells[1].FindControl("VidoviSortimentiID");
-                        TextBox Qty = (TextBox)ContractGrid.Rows[rowIndex].Cells[2].FindControl("Qty");
-                        TextBox Price = (TextBox)ContractGrid.Rows[rowIndex].Cells[2].FindControl("Price");
+                        DropDownList ReginalCenter = (DropDownList)ContractGrid.Rows[rowIndex].Cells[0].FindControl("ReginalCenter");
+                        DropDownList ManagementUnit = (DropDownList)ContractGrid.Rows[rowIndex].Cells[1].FindControl("ManagementUnit");
+                        TextBox Compartment = (TextBox)ContractGrid.Rows[rowIndex].Cells[2].FindControl("Compartment");
+                        TextBox SubCompartment = (TextBox)ContractGrid.Rows[rowIndex].Cells[3].FindControl("SubcompartmentID");
+                        DropDownList Month = (DropDownList)ContractGrid.Rows[rowIndex].Cells[4].FindControl("Month");
+                        DropDownList Edinecnamera = (DropDownList)ContractGrid.Rows[rowIndex].Cells[5].FindControl("Edinecnamera");
+                        DropDownList Vidsortiment = (DropDownList)ContractGrid.Rows[rowIndex].Cells[6].FindControl("Vidsortiment");
+                        TextBox Qty = (TextBox)ContractGrid.Rows[rowIndex].Cells[7].FindControl("Qty");
+                        TextBox Price = (TextBox)ContractGrid.Rows[rowIndex].Cells[8].FindControl("Price");
                         drCurrentRow = dtCurrentTable.NewRow();
-                        dtCurrentTable.Rows[i - 1]["RegionalCenterId"] = string.Empty;
-                        dtCurrentTable.Rows[i - 1]["ManagementUnitId"] = string.Empty;
-                        dtCurrentTable.Rows[i - 1]["CompartmentId"] = string.Empty;
-                        dtCurrentTable.Rows[i - 1]["SubcompartmentID"] = string.Empty;
-                        dtCurrentTable.Rows[i - 1]["Month"] = string.Empty;
-                        dtCurrentTable.Rows[i - 1]["VidoviEdinecniMeriID"] = string.Empty;
-                        dtCurrentTable.Rows[i - 1]["VidoviSortimentiID"] = string.Empty;
-                        dtCurrentTable.Rows[i - 1]["Qty"] = string.Empty;
-                        dtCurrentTable.Rows[i - 1]["Price"] = string.Empty;
+                        dtCurrentTable.Rows[i - 1]["RegionalCenterId"] = ReginalCenter.SelectedValue;
+                        dtCurrentTable.Rows[i - 1]["ManagementUnitId"] = ManagementUnit.SelectedValue;
+                        dtCurrentTable.Rows[i - 1]["CompartmentId"] = Compartment.Text;
+                        dtCurrentTable.Rows[i - 1]["SubcompartmentID"] = SubCompartment.Text;
+                        dtCurrentTable.Rows[i - 1]["Month"] = Month.SelectedValue;
+                        dtCurrentTable.Rows[i - 1]["VidoviEdinecniMeriID"] = Edinecnamera.SelectedValue;
+                        dtCurrentTable.Rows[i - 1]["VidoviSortimentiID"] = Vidsortiment.SelectedValue;
+                        dtCurrentTable.Rows[i - 1]["Qty"] = Qty.Text;
+                        dtCurrentTable.Rows[i - 1]["Price"] = Price.Text;
                         rowIndex++;
                     }
                     dtCurrentTable.Rows.Add(drCurrentRow);
@@ -542,12 +580,12 @@ namespace ElboSoft_Contact
                         DropDownList ReginalCenter = (DropDownList)ContractGrid.Rows[rowIndex].Cells[1].FindControl("ReginalCenter");
                         DropDownList ManagementUnit = (DropDownList)ContractGrid.Rows[rowIndex].Cells[2].FindControl("ManagementUnit");
                         TextBox Compartment = (TextBox)ContractGrid.Rows[rowIndex].Cells[3].FindControl("Compartment");
-                        TextBox SubCompartment = (TextBox)ContractGrid.Rows[rowIndex].Cells[1].FindControl("SubcompartmentID");
-                        DropDownList Month = (DropDownList)ContractGrid.Rows[rowIndex].Cells[2].FindControl("Month");
-                        DropDownList Edinecnamera = (DropDownList)ContractGrid.Rows[rowIndex].Cells[3].FindControl("Edinecnamera");
-                        DropDownList Vidsortiment = (DropDownList)ContractGrid.Rows[rowIndex].Cells[1].FindControl("Vidsortiment");
-                        TextBox Qty = (TextBox)ContractGrid.Rows[rowIndex].Cells[2].FindControl("Qty");
-                        TextBox Price = (TextBox)ContractGrid.Rows[rowIndex].Cells[2].FindControl("Price");
+                        TextBox SubCompartment = (TextBox)ContractGrid.Rows[rowIndex].Cells[4].FindControl("SubcompartmentID");
+                        DropDownList Month = (DropDownList)ContractGrid.Rows[rowIndex].Cells[5].FindControl("Month");
+                        DropDownList Edinecnamera = (DropDownList)ContractGrid.Rows[rowIndex].Cells[6].FindControl("Edinecnamera");
+                        DropDownList Vidsortiment = (DropDownList)ContractGrid.Rows[rowIndex].Cells[7].FindControl("Vidsortiment");
+                        TextBox Qty = (TextBox)ContractGrid.Rows[rowIndex].Cells[8].FindControl("Qty");
+                        TextBox Price = (TextBox)ContractGrid.Rows[rowIndex].Cells[9].FindControl("Price");
 
                         ReginalCenter.SelectedItem.Text = dt.Rows[i]["ReginalCenter"].ToString();
                         ManagementUnit.SelectedItem.Text = dt.Rows[i]["ManagementUnit"].ToString();

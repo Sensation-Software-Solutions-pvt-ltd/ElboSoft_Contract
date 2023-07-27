@@ -248,7 +248,7 @@
                                 </asp:TemplateField>
                                 <asp:TemplateField HeaderText="Compartment">
                                     <ItemTemplate>
-                                        <asp:TextBox ID="Compartment" runat="server" class="form-control" Text='<%# Bind("CompartmentId") %>'></asp:TextBox>
+                                        <asp:TextBox ID="Compartment" runat="server" class="form-control" TextMode="Number" Text='<%# Bind("CompartmentId") %>'></asp:TextBox>
                                     </ItemTemplate>
                                 </asp:TemplateField>
                                 <asp:TemplateField HeaderText="SubCompartment">
