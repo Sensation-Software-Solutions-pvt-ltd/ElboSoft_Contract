@@ -14,6 +14,14 @@
                 $('#edited-form input').val('');
             })
         });
+        function AddCustomer(){
+            window.location.href = "Customer.aspx";
+        }
+        function updatecustomer() {
+            debugger;
+            var customerid = document.getElementById("<%=CustomerID.ClientID %>").value;
+            window.location.href = "Customer.aspx?CustomertId="+customerid;
+        }
     </script>
     <div class="container ">
         <main class="body_content">
@@ -48,8 +56,10 @@
 
                             <div class="form-group">
                                 <label  class="col-sm-5 control-label">Customer</label>
-                                <div class="col-sm-7">
-                                    <asp:DropDownList ID="CustomerID" runat="server" CssClass="form-control"></asp:DropDownList>
+                                <div class="col-sm-7 plus-control">
+                                    <asp:DropDownList ID="CustomerID" runat="server" CssClass="form-control" OnSelectedIndexChanged="CustomerID_SelectedIndexChanged" AutoPostBack="true"></asp:DropDownList>
+                                    <span id="customeraddicon" runat="server" onclick="AddCustomer()" class=" pls-icon glyphicon glyphicon glyphicon-plus"></span>
+                                     <span id="updatecustomericon" onclick="updatecustomer()" runat="server"  visible="false" class=" pls-icon checkblock">&#x270E;</span>
                                 </div>
                             </div>
                             <div class="form-group">
@@ -236,17 +246,19 @@
                             <Columns>
                                 <asp:TemplateField HeaderText="Regional Center">
                                     <ItemTemplate>
+                                         <asp:Label ID="lblReginalCenter" runat="server" Text='<%# Eval("RegionalCenterId") %>' Visible = "false" />
                                         <asp:DropDownList ID="ReginalCenter" runat="server" class="form-control"></asp:DropDownList>
                                     </ItemTemplate>
                                 </asp:TemplateField>
                                 <asp:TemplateField HeaderText="Management Unit">
                                     <ItemTemplate>
+                                        <asp:Label ID="lblManagementUnit" runat="server" Text='<%# Eval("ManagementUnitId") %>' Visible = "false" />
                                         <asp:DropDownList ID="ManagementUnit" runat="server" class="form-control"></asp:DropDownList>
                                     </ItemTemplate>
                                 </asp:TemplateField>
                                 <asp:TemplateField HeaderText="Compartment">
                                     <ItemTemplate>
-                                        <asp:TextBox ID="Compartment" runat="server" class="form-control" ></asp:TextBox>
+                                        <asp:TextBox ID="Compartment" runat="server" class="form-control" TextMode="Number" Text='<%# Bind("CompartmentId") %>'></asp:TextBox>
                                     </ItemTemplate>
                                 </asp:TemplateField>
                                 <asp:TemplateField HeaderText="SubCompartment">
@@ -274,7 +286,7 @@
                                 </asp:TemplateField>
                                 <asp:TemplateField HeaderText="Qty" >
                                     <ItemTemplate>
-                                        <asp:TextBox ID="Qty" runat="server" TextMode="Number" class="form-control" Text='<%# Bind("Qty") %>'></asp:TextBox>
+                                        <asp:TextBox ID="Qty" runat="server" TextMode="Number" value="$Qty" class="form-control" Text='<%# Bind("Qty") %>'></asp:TextBox>
                                     </ItemTemplate>
                                 </asp:TemplateField>
                                 
