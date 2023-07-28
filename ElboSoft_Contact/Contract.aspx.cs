@@ -373,6 +373,7 @@ namespace ElboSoft_Contact
                     CustomerID.DataValueField = "CustomerID";
                     CustomerID.DataTextField = "CustomerDescription";
                     CustomerID.DataBind();
+                    CustomerID.Items.Insert(0, new ListItem("--Select--", "0"));
                 }
             }
             catch (Exception ex)
@@ -685,6 +686,12 @@ namespace ElboSoft_Contact
                     Agreement.Checked = false;
                 }
             }
+        }
+
+        protected void CustomerID_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            updatecustomericon.Visible = true;
+            customeraddicon.Visible = false;
         }
     }
 }

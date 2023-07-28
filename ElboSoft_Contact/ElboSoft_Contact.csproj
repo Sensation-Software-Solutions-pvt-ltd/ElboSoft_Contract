@@ -127,6 +127,7 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\Site.css" />
     <Content Include="contract-form.html" />
+    <Content Include="Customer.aspx" />
     <Content Include="Default.aspx" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
@@ -189,6 +190,13 @@
     <Compile Include="Contract.aspx.designer.cs">
       <DependentUpon>Contract.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Customer.aspx.cs">
+      <DependentUpon>Customer.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Customer.aspx.designer.cs">
+      <DependentUpon>Customer.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -204,6 +212,7 @@
     <Compile Include="Models\cdPaymentType.cs" />
     <Compile Include="Models\cdPurpose.cs" />
     <Compile Include="Models\cdRequestType.cs" />
+    <Compile Include="Models\CustomerType.cs" />
     <Compile Include="Models\ManagementUnits.cs" />
     <Compile Include="Models\Months.cs" />
     <Compile Include="Models\RegionalCenters.cs" />

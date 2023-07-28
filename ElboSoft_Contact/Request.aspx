@@ -14,6 +14,14 @@
                 $('#edited-form input').val('');
             })
         });
+        function AddCustomer(){
+            window.location.href = "Customer.aspx";
+        }
+        function updatecustomer() {
+            debugger;
+            var customerid = document.getElementById("<%=CustomerID.ClientID %>").value;
+            window.location.href = "Customer.aspx?CustomertId="+customerid;
+        }
     </script>
     <div class="container ">
         <main class="body_content">
@@ -48,8 +56,10 @@
 
                             <div class="form-group">
                                 <label  class="col-sm-5 control-label">Customer</label>
-                                <div class="col-sm-7">
-                                    <asp:DropDownList ID="CustomerID" runat="server" CssClass="form-control"></asp:DropDownList>
+                                <div class="col-sm-7 plus-control">
+                                    <asp:DropDownList ID="CustomerID" runat="server" CssClass="form-control" OnSelectedIndexChanged="CustomerID_SelectedIndexChanged" AutoPostBack="true"></asp:DropDownList>
+                                    <span id="customeraddicon" runat="server" onclick="AddCustomer()" class=" pls-icon glyphicon glyphicon glyphicon-plus"></span>
+                                     <span id="updatecustomericon" onclick="updatecustomer()" runat="server"  visible="false" class=" pls-icon checkblock">&#x270E;</span>
                                 </div>
                             </div>
                             <div class="form-group">

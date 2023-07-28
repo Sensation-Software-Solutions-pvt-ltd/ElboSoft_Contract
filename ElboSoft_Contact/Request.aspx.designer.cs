@@ -51,6 +51,24 @@ namespace ElboSoft_Contact
         protected global::System.Web.UI.WebControls.DropDownList CustomerID;
 
         /// <summary>
+        /// customeraddicon control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl customeraddicon;
+
+        /// <summary>
+        /// updatecustomericon control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl updatecustomericon;
+
+        /// <summary>
         /// PaymentTypeID control.
         /// </summary>
         /// <remarks>
