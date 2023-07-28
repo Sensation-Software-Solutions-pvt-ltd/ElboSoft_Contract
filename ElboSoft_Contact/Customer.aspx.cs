@@ -38,7 +38,7 @@ namespace ElboSoft_Contact
                 {
                     Update.Visible = false;
                 }
-                ViewState["previouspage"] = Request.UrlReferrer.AbsoluteUri.Split('/')[3].ToString();
+                ViewState["previouspage"] = Request.UrlReferrer.AbsoluteUri.ToString();
             }
 
         }
@@ -167,7 +167,7 @@ namespace ElboSoft_Contact
                         string SqlQuery = string.Format("UPDATE public.\"cdCustomer\" SET \"CustomerDescription\" ='{0}', \"CustomerTypeID\" ={1}, \"IsPerson\" =cast({2} as bit), \"SubmissionDeadline\" ={3}, \"PersonalNumberID\" ={4}, \"TaxNumber\" ={5}, \"BankAccountNumber\" ={6}, \"Address\" ='{7}', \"PhoneNumber\" ='{8}', \"ContactPerson\" ='{9}', \"IDNumebr\" ='{10}', \"IssuedBy\" ='{11}', \"Email\" ='{12}' WHERE \"CustomerID\"='{13}'", cdescription, cutomertypeid, isperson, submissiondeadline, personlanumberid, taxnumber, bankaccountnumber, address, phonenumber, email, contractperson, idnumber, issuedby, customerid);
                         var result = conn.Query(SqlQuery);
                         ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert('Customer Updated Successfully')", true);
-                        Response.Redirect(ViewState["previouspage"].ToString() + ".aspx");
+                        Response.Redirect(ViewState["previouspage"].ToString());
                     }
                 }
                 catch (Exception ex)

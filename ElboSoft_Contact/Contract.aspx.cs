@@ -690,8 +690,16 @@ namespace ElboSoft_Contact
 
         protected void CustomerID_SelectedIndexChanged(object sender, EventArgs e)
         {
-            updatecustomericon.Visible = true;
-            customeraddicon.Visible = false;
+            if (CustomerID.SelectedItem.Value == "0")
+            {
+                updatecustomericon.Visible = false;
+                customeraddicon.Visible = true;
+            }
+            else
+            {
+                updatecustomericon.Visible = true;
+                customeraddicon.Visible = false;
+            }
         }
     }
 }
