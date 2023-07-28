@@ -126,7 +126,7 @@
                                    Phone Number
                                 </label>
                                 <div class="col-sm-6 chcbox">
-                                    <asp:TextBox runat="server" ID="PhoneNumber"  CssClass="form-control"/>
+                                    <asp:TextBox runat="server" ID="PhoneNumber" TextMode="Phone"  CssClass="form-control"/>
                                 </div>
                             </div>
                             <div class="form-group ">

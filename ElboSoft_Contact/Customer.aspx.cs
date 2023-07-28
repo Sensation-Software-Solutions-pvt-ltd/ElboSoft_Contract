@@ -148,7 +148,7 @@ namespace ElboSoft_Contact
             {
                 string cdescription = CustomerDescription.Text;
                 int cutomertypeid = Convert.ToInt32(CustomerType.SelectedItem.Value);
-                bool isperson = Convert.ToBoolean(IsPerson.Checked);
+                int isperson = Convert.ToInt32(IsPerson.Checked);
                 int submissiondeadline = Convert.ToInt32(SubmissionDeadline.Text);
                 int personlanumberid = Convert.ToInt32(PersonalNumberID.Text);
                 int taxnumber = Convert.ToInt32(TaxNumber.Text);
