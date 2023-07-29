@@ -45,6 +45,16 @@ namespace ElboSoft_Contact
                     updatediv.Visible = true;
                 }
                 SetInitialRow(count);
+                if (CustomerID.SelectedItem.Value == "0")
+                {
+                    updatecustomericon.Visible = false;
+                    customeraddicon.Visible = true;
+                }
+                else
+                {
+                    updatecustomericon.Visible = true;
+                    customeraddicon.Visible = false;
+                }
             }
 
         }

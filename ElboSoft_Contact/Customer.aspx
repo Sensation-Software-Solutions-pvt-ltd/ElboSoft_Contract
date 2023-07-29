@@ -14,13 +14,6 @@
 
                 </div>`;
 
-         // $("#add").on("click", ()=>{
-         //     $("#items").append(template);
-         // })
-         // $("body").on("click", ".remove-block", (e)=>{
-         //     $(e.target).parent("div").parent('.form-group').remove();
-         // })
-
          $("#ad-ico").on("click", () => {
              $("#edited-form").show();
              $('#non-edited-form').hide();

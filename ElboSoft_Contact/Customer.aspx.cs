@@ -123,7 +123,7 @@ namespace ElboSoft_Contact
                 {
                     using (var conn = new OdbcConnection(GetConString()))
                     {
-                        string SqlQuery = string.Format("INSERT INTO public.\"cdCustomer\"(\"CustomerDescription\", \"CustomerTypeID\", \"IsPerson\", \"SubmissionDeadline\", \"PersonalNumberID\", \"TaxNumber\", \"BankAccountNumber\", \"Address\", \"PhoneNumber\", \"ContactPerson\", \"IDNumebr\", \"IssuedBy\", \"Email\")VALUES('{0}',{1},cast({2} as bit),{3},{4},{5},{6},'{7}','{8}','{9}','{10}','{11}','{12}'); ", cdescription, cutomertypeid, isperson, submissiondeadline, personlanumberid, taxnumber, bankaccountnumber, address, phonenumber, contractperson,idnumber, email, issuedby);
+                        string SqlQuery = string.Format("INSERT INTO public.\"cdCustomer\"(\"CustomerDescription\", \"CustomerTypeID\", \"IsPerson\", \"SubmissionDeadline\", \"PersonalNumberID\", \"TaxNumber\", \"BankAccountNumber\", \"Address\", \"PhoneNumber\", \"ContactPerson\", \"IDNumebr\", \"IssuedBy\", \"Email\")VALUES('{0}',{1},cast({2} as bit),{3},{4},{5},{6},'{7}','{8}','{9}','{10}','{11}','{12}'); ", cdescription, cutomertypeid, isperson, submissiondeadline, personlanumberid, taxnumber, bankaccountnumber, address, phonenumber, contractperson,idnumber, issuedby, email );
                         var result = conn.Query(SqlQuery);
                         ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert('Customer Created Successfully')", true);
                         Response.Redirect(ViewState["previouspage"].ToString()+".aspx");
@@ -164,7 +164,7 @@ namespace ElboSoft_Contact
                 {
                     using (var conn = new OdbcConnection(GetConString()))
                     {
-                        string SqlQuery = string.Format("UPDATE public.\"cdCustomer\" SET \"CustomerDescription\" ='{0}', \"CustomerTypeID\" ={1}, \"IsPerson\" =cast({2} as bit), \"SubmissionDeadline\" ={3}, \"PersonalNumberID\" ={4}, \"TaxNumber\" ={5}, \"BankAccountNumber\" ={6}, \"Address\" ='{7}', \"PhoneNumber\" ='{8}', \"ContactPerson\" ='{9}', \"IDNumebr\" ='{10}', \"IssuedBy\" ='{11}', \"Email\" ='{12}' WHERE \"CustomerID\"='{13}'", cdescription, cutomertypeid, isperson, submissiondeadline, personlanumberid, taxnumber, bankaccountnumber, address, phonenumber, email, contractperson, idnumber, issuedby, customerid);
+                        string SqlQuery = string.Format("UPDATE public.\"cdCustomer\" SET \"CustomerDescription\" ='{0}', \"CustomerTypeID\" ={1}, \"IsPerson\" =cast({2} as bit), \"SubmissionDeadline\" ={3}, \"PersonalNumberID\" ={4}, \"TaxNumber\" ={5}, \"BankAccountNumber\" ={6}, \"Address\" ='{7}', \"PhoneNumber\" ='{8}', \"ContactPerson\" ='{9}', \"IDNumebr\" ='{10}', \"IssuedBy\" ='{11}', \"Email\" ='{12}' WHERE \"CustomerID\"='{13}'", cdescription, cutomertypeid, isperson, submissiondeadline, personlanumberid, taxnumber, bankaccountnumber, address, phonenumber, contractperson, idnumber, issuedby, email, customerid);
                         var result = conn.Query(SqlQuery);
                         ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert('Customer Updated Successfully')", true);
                         Response.Redirect(ViewState["previouspage"].ToString());
